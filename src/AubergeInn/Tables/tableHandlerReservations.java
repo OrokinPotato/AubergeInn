@@ -1,4 +1,4 @@
-package AubergeInn.Table;
+package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
 
