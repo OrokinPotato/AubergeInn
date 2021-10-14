@@ -13,4 +13,12 @@ public class tableHandlerClients {
     private PreparedStatement stmtDelete;
     private Connexion cx;
 
+
+    public Connexion getConnexion() {
+        return cx;
+    }
+
+    public boolean existe(int id) {
+        return true;
+    }
 }
