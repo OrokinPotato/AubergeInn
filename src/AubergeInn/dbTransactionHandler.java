@@ -1,10 +1,10 @@
 package AubergeInn;
 
-import AubergeInn.Table.tableHandlerChambres;
-import AubergeInn.Table.tableHandlerClients;
-import AubergeInn.Table.tableHandlerCommodites;
-import AubergeInn.Table.tableHandlerReservations;
-import AubergeInn.Table.tableHandlerComChambre;
+import AubergeInn.Tables.tableHandlerChambres;
+import AubergeInn.Tables.tableHandlerClients;
+import AubergeInn.Tables.tableHandlerCommodites;
+import AubergeInn.Tables.tableHandlerReservations;
+import AubergeInn.Tables.tableHandlerComChambre;
 
 public class dbTransactionHandler {
 

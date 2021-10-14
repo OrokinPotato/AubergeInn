@@ -1,4 +1,4 @@
-package AubergeInn.Table;
+package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
 
@@ -12,6 +12,13 @@ public class tableHandlerClients {
     private PreparedStatement stmtDelete;
     private Connexion cx;
 
+
+    public Connexion getConnexion() {
+        return cx;
+    }
+
+    public boolean existe(int id) {
+        return true;
     /**
      * Creation d'une instance. Précompilation d'énoncés SQL.
      */
