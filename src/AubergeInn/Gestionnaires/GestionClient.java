@@ -1,18 +1,18 @@
 package AubergeInn.Gestionnaires;
 
 import AubergeInn.*;
-import AubergeInn.Tables.tableHandlerClients;
-import AubergeInn.Tables.tableHandlerReservations;
+import AubergeInn.Tables.tableClients;
+import AubergeInn.Tables.tableReservations;
 
 import java.sql.*;
 
 public class GestionClient {
 
     private Connexion cx;
-    private tableHandlerClients clients;
-    private tableHandlerReservations reservations;
+    private tableClients clients;
+    private tableReservations reservations;
 
-    public GestionClient(tableHandlerClients c, tableHandlerReservations r) throws IFT287Exception {
+    public GestionClient(tableClients c, tableReservations r) throws IFT287Exception {
         this.cx = c.getConnexion();
         if (c.getConnexion() != r.getConnexion()) {
             throw new IFT287Exception("Differente connexions entre la table Clients et la table Reservation");
@@ -21,12 +21,13 @@ public class GestionClient {
         this.reservations = r;
     }
 
-    // Ajoute un nouveau client, si déjà présent, renvoi exception
-    public void ajout(int id, String prenom, String nom, int age)
+    /**
+     *  Commande d'ajout d'un client.
+     */
+    public void ajouter(int id, String prenom, String nom, int age)
         throws SQLException, IFT287Exception, Exception
     {
         try {
-
             if (clients.existe(id)) {
                 throw new IFT287Exception("Client déjà présent dans la base de données.");
             }
@@ -40,8 +41,51 @@ public class GestionClient {
     }
 
 
-    public void retire(){
+    /**
+     *  Commande de retrait d'un client.
+     */
+    public void retirer(int id) throws SQLException, IFT287Exception, Exception
+    {
+        try {
 
+            if (clients.getClient(id) == null) {
+                throw new IFT287Exception("Client inexistant: " + id);
+            }
+            if (reservations.getReservationClient(id) != null) {
+                throw new IFT287Exception("Client "+ id + " a encore des reservations");
+            }
+
+            int n = clients.supprimerClient(id);
+            if (n == 0) {
+                throw new IFT287Exception("Le client "+ id + " n'existe pas");
+            }
+            cx.commit();
+        }
+        catch (Exception e)
+        {
+            cx.rollback();
+            throw e;
+        }
     }
 
+    /**
+     *  Commande d'affichage des informations sur un client.
+     */
+    public void afficher(int id) throws SQLException, IFT287Exception, Exception
+    {
+        try
+        {
+            if (clients.getClient(id) == null) {
+                throw new IFT287Exception("Client inexistant: " + id);
+            }
+
+            clients.afficherClient(id);
+            cx.commit();
+        }
+        catch (Exception e)
+        {
+            cx.rollback();
+            throw e;
+        }
+    }
 }
