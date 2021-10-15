@@ -10,11 +10,11 @@ public class GestionComChambre {
 
 
     private Connexion cx;
-    private tableComChambre comChambre;
-    private tableCommodites commodites;
+    private TableComChambre comChambre;
+    private TableCommodites commodites;
     private tableChambres chambres;
 
-    public GestionComChambre(tableChambres ch, tableComChambre cc, tableCommodites co)
+    public GestionComChambre(tableChambres ch, TableComChambre cc, TableCommodites co)
             throws IFT287Exception
     {
         this.cx = co.getConnexion();
@@ -60,7 +60,7 @@ public class GestionComChambre {
                 throw new IFT287Exception("Commodité inexistante: " + commoditeId);
             }
 
-            int n = comChambre.retirerCommodite(commoditeId, chambreId);
+            int n = comChambre.enleverCommodite(commoditeId, chambreId);
             if (n == 0) {
                 throw new IFT287Exception("La combinaison Commodité/Chambre"+ commoditeId +"/" + chambreId +" n'existait pas");
             }

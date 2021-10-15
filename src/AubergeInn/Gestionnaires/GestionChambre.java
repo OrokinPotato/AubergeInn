@@ -4,9 +4,9 @@ import AubergeInn.Connexion;
 import AubergeInn.IFT287Exception;
 
 import AubergeInn.Tables.tableChambres;
-import AubergeInn.Tables.tableComChambre;
-import AubergeInn.Tables.tableCommodites;
-import AubergeInn.Tables.tableReservations;
+import AubergeInn.Tables.TableComChambre;
+import AubergeInn.Tables.TableCommodites;
+import AubergeInn.Tables.TableReservations;
 
 import java.sql.*;
 
@@ -14,11 +14,11 @@ public class GestionChambre {
 
     private Connexion cx;
     private tableChambres chambres;
-    private tableReservations reservations;
-    private tableComChambre comChambres;
-    private tableCommodites commodites;
+    private TableReservations reservations;
+    private TableComChambre comChambres;
+    private TableCommodites commodites;
 
-    public GestionChambre(tableChambres ch, tableReservations r, tableComChambre cc)
+    public GestionChambre(tableChambres ch, TableReservations r, TableComChambre cc)
         throws IFT287Exception
     {
         this.cx = ch.getConnexion();
@@ -62,7 +62,7 @@ public class GestionChambre {
             if (chambres.getChambre(id) == null){
                 throw new IFT287Exception("Chambre inexistante: " + id);
             }
-            if (reservations.getReservationChambre(id) == null)
+            if (reservations.getReservationsChambre(id) == null)
             {
                 throw new IFT287Exception("Chambre "+ id + " présentement réservée");
             }
@@ -88,15 +88,15 @@ public class GestionChambre {
     /**
      *  Commande d'affichage des informations sur une chambre.
      */
-    public void afficher(int id) throws SQLException, IFT287Exception, Exception
+    public void afficher(int idChambre) throws SQLException, IFT287Exception, Exception
     {
         try
         {
-            if (chambres.getChambre(id) == null) {
-                throw new IFT287Exception("Client inexistant: " + id);
+            if (chambres.getChambre(idChambre) == null) {
+                throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
 
-            chambres.afficherChambre(id);
+            chambres.afficherChambre(idChambre);
             cx.commit();
         }
         catch (Exception e)

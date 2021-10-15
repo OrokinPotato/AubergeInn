@@ -2,15 +2,15 @@ package AubergeInn.Tuples;
 
 // Permet de représenter un tuple de la table client.
 
-public class tupleClient {
+public class TupleClient {
 
     private int id;
     private String nom;
     private String prenom;
     private int age;
 
-    public tupleClient() {}
-    public tupleClient(int id, String nom, String prenom, int age) {
+    public TupleClient() {}
+    public TupleClient(int id, String nom, String prenom, int age) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;

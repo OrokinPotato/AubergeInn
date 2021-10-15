@@ -1,18 +1,18 @@
 package AubergeInn.Gestionnaires;
 
 import AubergeInn.*;
-import AubergeInn.Tables.tableClients;
-import AubergeInn.Tables.tableReservations;
+import AubergeInn.Tables.TableClients;
+import AubergeInn.Tables.TableReservations;
 
 import java.sql.*;
 
 public class GestionClient {
 
     private Connexion cx;
-    private tableClients clients;
-    private tableReservations reservations;
+    private TableClients clients;
+    private TableReservations reservations;
 
-    public GestionClient(tableClients c, tableReservations r) throws IFT287Exception {
+    public GestionClient(TableClients c, TableReservations r) throws IFT287Exception {
         this.cx = c.getConnexion();
         if (c.getConnexion() != r.getConnexion()) {
             throw new IFT287Exception("Differente connexions entre la table Clients et la table Reservation");
@@ -51,7 +51,7 @@ public class GestionClient {
             if (clients.getClient(id) == null) {
                 throw new IFT287Exception("Client inexistant: " + id);
             }
-            if (reservations.getReservationClient(id) != null) {
+            if (reservations.getReservationsClient(id) != null) {
                 throw new IFT287Exception("Client "+ id + " a encore des reservations");
             }
 

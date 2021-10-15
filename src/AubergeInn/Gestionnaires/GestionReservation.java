@@ -5,9 +5,9 @@ import AubergeInn.IFT287Exception;
 
 import AubergeInn.Tables.*;
 
-import AubergeInn.Tuples.tupleChambre;
-import AubergeInn.Tuples.tupleCommodite;
-import AubergeInn.Tuples.tupleCommoditeChambre;
+import AubergeInn.Tuples.TupleChambre;
+import AubergeInn.Tuples.TupleCommodite;
+import AubergeInn.Tuples.TupleCommoditeChambre;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,17 +16,17 @@ import java.util.List;
 public class GestionReservation {
 
     private Connexion cx;
-    private tableReservations reservations;
+    private TableReservations reservations;
     private tableChambres chambres;
-    private tableClients clients;
-    private tableComChambre comChambre;
-    private tableCommodites commodites;
+    private TableClients clients;
+    private TableComChambre comChambre;
+    private TableCommodites commodites;
 
-    public GestionReservation(tableReservations r,
-                              tableClients cl,
+    public GestionReservation(TableReservations r,
+                              TableClients cl,
                               tableChambres ch,
-                              tableComChambre cc,
-                              tableCommodites co)
+                              TableComChambre cc,
+                              TableCommodites co)
             throws IFT287Exception
     {
         this.cx = r.getConnexion();
@@ -59,15 +59,15 @@ public class GestionReservation {
             }
 
             //Calcul du prix de la reservation
-            tupleChambre tuChambre = chambres.getChambre(chambreId);
+            TupleChambre tuChambre = chambres.getChambre(chambreId);
             if (tuChambre == null) {
                 throw new IFT287Exception("La chambre " + chambreId + " n'existe pas dans la base de données");
             }
             double resPrix = tuChambre.getPrix();
 
-            List<tupleCommoditeChambre> comListe = comChambre.getAllCommodite(chambreId);
-            for (tupleCommoditeChambre i : comListe) {
-                tupleCommodite tuCom = commodites.getCommodite(i.getCommoditeId());
+            List<TupleCommoditeChambre> comListe = comChambre.getAllCommodite(chambreId);
+            for (TupleCommoditeChambre i : comListe) {
+                TupleCommodite tuCom = commodites.getCommodite(i.getCommoditeId());
                 resPrix += tuCom.getPrix();
             }
 

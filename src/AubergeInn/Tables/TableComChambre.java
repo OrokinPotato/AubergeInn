@@ -1,14 +1,16 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.tupleCommoditeChambre;
+import AubergeInn.Tuples.TupleCommoditeChambre;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class tableComChambre {
+public class TableComChambre {
 
     private Connexion cx;
     private final PreparedStatement stmtListeComParChambre;
@@ -16,7 +18,7 @@ public class tableComChambre {
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
-    public tableComChambre(Connexion cx) throws SQLException
+    public TableComChambre(Connexion cx) throws SQLException
     {
         this.cx = cx;
 
@@ -52,17 +54,17 @@ public class tableComChambre {
         return chambreListe;
     }
 
-    public List<tupleCommoditeChambre> getAllCommodite(int chambreId)
+    public List<TupleCommoditeChambre> getAllCommodite(int chambreId)
             throws SQLException
     {
         stmtListeComParChambre.setInt(1, chambreId);
         ResultSet set = stmtListeComParChambre.executeQuery();
 
-        List<tupleCommoditeChambre> comListe = new LinkedList<tupleCommoditeChambre>();
+        List<TupleCommoditeChambre> comListe = new LinkedList<TupleCommoditeChambre>();
 
         while (set.next())
         {
-            tupleCommoditeChambre tuComChambre = new tupleCommoditeChambre(
+            TupleCommoditeChambre tuComChambre = new TupleCommoditeChambre(
                     set.getInt("commodite_id"),
                     set.getInt("chambre_id"));
             comListe.add(tuComChambre);
@@ -84,7 +86,7 @@ public class tableComChambre {
     /**
      * Suppression d'une commodité d'une chambre.
      */
-    public int retirerCommodite(int commoditeId, int chambreId) throws SQLException
+    public int enleverCommodite(int commoditeId, int chambreId) throws SQLException
     {
         stmtDelete.setInt(1, commoditeId);
         stmtDelete.setInt(2, chambreId);

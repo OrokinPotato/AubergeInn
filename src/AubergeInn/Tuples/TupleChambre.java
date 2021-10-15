@@ -2,15 +2,15 @@ package AubergeInn.Tuples;
 
 // Permet de représenter un tuple de la table chambre.
 
-public class tupleChambre {
+public class TupleChambre {
 
     private int id;
     private String nom;
     private String type_lit;
     private double prix;
 
-    public tupleChambre() {}
-    public tupleChambre(int id, String nom, String type_lit, double prix) {
+    public TupleChambre() {}
+    public TupleChambre(int id, String nom, String type_lit, double prix) {
         this.id = id;
         this.nom = nom;
         this.type_lit = type_lit;

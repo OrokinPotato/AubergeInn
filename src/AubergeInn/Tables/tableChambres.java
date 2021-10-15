@@ -1,7 +1,7 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.tupleChambre;
+import AubergeInn.Tuples.TupleChambre;
 
 import java.sql.*;
 
@@ -34,30 +34,58 @@ public class tableChambres {
         return cx;
     }
 
-    public tupleChambre getChambre(int id)
+    public TupleChambre getChambre(int idChambre) throws SQLException
     {
+        stmtExiste.setInt(1, idChambre);
+        ResultSet set = stmtExiste.executeQuery();
+        if (set.next())
+        {
+            TupleChambre tuChambre = new TupleChambre();
+            tuChambre.setId(idChambre);
+            tuChambre.setNom(set.getString(2));
+            tuChambre.setType_lit(set.getString(3));
+            tuChambre.setPrix(set.getDouble(4));
+            set.close();
+            return tuChambre;
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    public boolean existe(int id) {
+    public boolean existe(int idChambre) throws SQLException {
+        stmtExiste.setInt(1, idChambre);
+        ResultSet set = stmtExiste.executeQuery();
+        boolean chambreExiste = set.next();
+        set.close();
+        return chambreExiste;
     }
 
 
-    public void ajouterChambre(int idChambre, String nom, String typeLit, double prix)
+    public void ajouterChambre(int idChambre, String nom, String typeLit, double prix) throws SQLException
     {
+        stmtInsert.setInt(1, idChambre);
+        stmtInsert.setString(2, nom);
+        stmtInsert.setString(3, typeLit);
+        stmtInsert.setDouble(4, prix);
+        stmtInsert.executeUpdate();
     }
 
-    public int supprimerChambre(int id)
+    public int supprimerChambre(int idChambre) throws SQLException
     {
+        stmtDelete.setInt(1, idChambre);
+        return stmtDelete.executeUpdate();
     }
 
     /**
      * Affichage de toutes les informations sur une chambre.
      */
-    public void afficherChambre(int idClient) throws SQLException
+    public void afficherChambre(int idChambre) throws SQLException
     {
         stmtAfficher.executeUpdate();
     }
-    public void afficherChambreLibre() throws SQLException
+    public void afficherChambresLibres() throws SQLException
     {
         //TODO
         // Pas sure qu'on puisse faire ça sans avoir une grosse requête dégeux
