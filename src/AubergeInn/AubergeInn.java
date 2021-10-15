@@ -155,6 +155,7 @@ public class AubergeInn
 
                     //TODO
                     // PAS IMPLEMENTER
+                    throw new IFT287Exception("Commande pas implémenter :/");
                     //gestionTransaction.getGestionChambre().afficherLibre();
                 }
                 else if (command.equals("afficherClient"))

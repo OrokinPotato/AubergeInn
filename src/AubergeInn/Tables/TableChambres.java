@@ -5,7 +5,7 @@ import AubergeInn.Tuples.TupleChambre;
 
 import java.sql.*;
 
-public class tableChambres {
+public class TableChambres {
 
     private Connexion cx;
     private PreparedStatement stmtExiste;
@@ -14,7 +14,7 @@ public class tableChambres {
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
-    public tableChambres(Connexion cx) throws SQLException
+    public TableChambres(Connexion cx) throws SQLException
     {
         this.cx = cx;
 
@@ -22,6 +22,16 @@ public class tableChambres {
                 .prepareStatement("select Chambres.id, Chambres.nom, Chambres.type_lit, Chambres.prix, " +
                         "CommoditesChambres.commodite_id from Chambres " +
                         "inner join CommoditesChambres on Chambres.id = CommoditesChambres.chambre_id");
+        stmtExiste = cx.getConnection().prepareStatement(
+
+        );
+        stmtInsert = cx.getConnection().prepareStatement(
+
+        );
+        stmtDelete = cx.getConnection().prepareStatement(
+
+        );
+
 
         //TODO
         // Si on peut avoir une requête qui a de l'allure

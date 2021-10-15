@@ -17,14 +17,14 @@ public class GestionReservation {
 
     private Connexion cx;
     private TableReservations reservations;
-    private tableChambres chambres;
+    private TableChambres chambres;
     private TableClients clients;
     private TableComChambre comChambre;
     private TableCommodites commodites;
 
     public GestionReservation(TableReservations r,
                               TableClients cl,
-                              tableChambres ch,
+                              TableChambres ch,
                               TableComChambre cc,
                               TableCommodites co)
             throws IFT287Exception

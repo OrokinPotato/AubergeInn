@@ -1,7 +1,7 @@
 package AubergeInn;
 
 import AubergeInn.Gestionnaires.*;
-import AubergeInn.Tables.tableChambres;
+import AubergeInn.Tables.TableChambres;
 import AubergeInn.Tables.TableClients;
 import AubergeInn.Tables.TableCommodites;
 import AubergeInn.Tables.TableReservations;
@@ -13,11 +13,11 @@ public class GestionnaireTransaction {
 
     private Connexion cx;
 
-    private tableChambres chambre;
-    private tableClients client;
-    private tableCommodites commodite;
-    private tableReservations reservations;
-    private tableComChambre comChambre;
+    private TableChambres chambre;
+    private TableClients client;
+    private TableCommodites commodite;
+    private TableReservations reservations;
+    private TableComChambre comChambre;
 
     private GestionClient gClient;
     private GestionChambre gChambre;
@@ -29,11 +29,11 @@ public class GestionnaireTransaction {
         this.cx = cx;
 
         // Creation des tables
-        chambre = new tableChambres(cx);
-        client = new tableClients(cx);
-        commodite = new tableCommodites(cx);
-        reservations = new tableReservations(cx);
-        comChambre = new tableComChambre(cx);
+        chambre = new TableChambres(cx);
+        client = new TableClients(cx);
+        commodite = new TableCommodites(cx);
+        reservations = new TableReservations(cx);
+        comChambre = new TableComChambre(cx);
 
         //Creation des gestionnaires
         gChambre = new GestionChambre(chambre,reservations, comChambre);

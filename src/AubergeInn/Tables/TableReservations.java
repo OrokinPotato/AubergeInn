@@ -14,6 +14,19 @@ public class TableReservations {
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
+    public TableReservations(Connexion cx) {
+        this.cx = cx;
+
+        stmtExiste = cx.getConnection().prepareStatement(
+
+        );
+        stmtInsert = cx.getConnection().prepareStatement(
+
+        );
+        stmtDelete = cx.getConnection().prepareStatement(
+
+        );
+    }
 
     public boolean existe(int clientId, int chambreId) throws SQLException
     {

@@ -3,7 +3,7 @@ package AubergeInn.Gestionnaires;
 import AubergeInn.Connexion;
 import AubergeInn.IFT287Exception;
 
-import AubergeInn.Tables.tableChambres;
+import AubergeInn.Tables.TableChambres;
 import AubergeInn.Tables.TableComChambre;
 import AubergeInn.Tables.TableCommodites;
 import AubergeInn.Tables.TableReservations;
@@ -13,12 +13,12 @@ import java.sql.*;
 public class GestionChambre {
 
     private Connexion cx;
-    private tableChambres chambres;
+    private TableChambres chambres;
     private TableReservations reservations;
     private TableComChambre comChambres;
     private TableCommodites commodites;
 
-    public GestionChambre(tableChambres ch, TableReservations r, TableComChambre cc)
+    public GestionChambre(TableChambres ch, TableReservations r, TableComChambre cc)
         throws IFT287Exception
     {
         this.cx = ch.getConnexion();

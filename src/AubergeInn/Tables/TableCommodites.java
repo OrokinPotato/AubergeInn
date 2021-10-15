@@ -16,6 +16,13 @@ public class TableCommodites {
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
+    public TableCommodites(Connexion cx) {
+        this.cx = cx;
+        stmtExiste = cx.getConnection().prepareStatement();
+        stmtInsert = cx.getConnection().prepareStatement();
+        stmtDelete = cx.getConnection().prepareStatement();
+    }
+
 
     public Connexion getConnexion() {
         return cx;
