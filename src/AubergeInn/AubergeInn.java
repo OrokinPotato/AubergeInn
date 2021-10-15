@@ -82,6 +82,9 @@ public class AubergeInn
     {
         try
         {
+            // Creer le gestionnaire
+            GestionnaireTransaction gestionTransaction = new GestionnaireTransaction(cx);
+
             System.out.print(transaction);
             // Decoupage de la transaction en mots
             StringTokenizer tokenizer = new StringTokenizer(transaction, " ");
@@ -92,18 +95,93 @@ public class AubergeInn
                 // les commandes de votre programme. Vous pouvez ajouter autant
                 // de else if que necessaire. Vous n'avez pas a traiter la
                 // commande "quitter".
-                if (command.equals("commande1"))
+                if (command.equals("ajouterClient"))
                 {
                     // Lecture des parametres
-                    String param1 = readString(tokenizer);
-                    Date param2 = readDate(tokenizer);
-                    int param3 = readInt(tokenizer);
+                    int param1 = readInt(tokenizer);            // idClient
+                    String param2 = readString(tokenizer);      // Prenom
+                    String param3 = readString(tokenizer);      // Nom
+                    int param4 = readInt(tokenizer);            // Age
                     // Appel de la methode des gestionnaires qui traite la transaction specifique
+                    gestionTransaction.getGestionClient().ajouter(param1, param2, param3, param4);
                 }
-                else if (command.equals("commande2"))
+                else if (command.equals("supprimerClient"))
                 {
-                    // Lire les parametres ici et appeler la bonne methode
-                    // de traitement pour la transaction
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idClient
+                    // Appel de la methode des gestionnaires qui traite la transaction specifique
+                    gestionTransaction.getGestionClient().retirer(param1);
+                }
+                else if (command.equals("ajouterChambre"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);                            // idChambre
+                    String param2 = readString(tokenizer);                      // Nom de la chambre
+                    String param3 = readString(tokenizer);                      // Type de lit
+                    double param4 = Double.parseDouble(readString(tokenizer));  // Prix de base
+                    gestionTransaction.getGestionChambre().ajouter(param1, param2, param3, param4);
+                }
+                else if (command.equals("supprimerChambre"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idChambre
+                    gestionTransaction.getGestionChambre().retirer(param1);
+                }
+                else if (command.equals("ajouterCommodite"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idCommodite
+                    String param2 = readString(tokenizer);      // Description
+                    double param3 = Double.parseDouble(readString(tokenizer));       // Surplux prix
+                    gestionTransaction.getGestionCommodite().ajouter(param1, param2, param3);
+                }
+                else if (command.equals("inclureCommodite"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idChambre
+                    int param2 = readInt(tokenizer);            // idCommodite
+                    gestionTransaction.getGestionComChambre().inclure(param1, param2);
+                }
+                else if (command.equals("enleverCommodite"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idChambre
+                    int param2 = readInt(tokenizer);            // idCommodite
+                    gestionTransaction.getGestionComChambre().enlever(param1, param2);
+                }
+                else if (command.equals("afficherChambresLibres"))
+                {
+                    // Aucun parametres
+
+                    //TODO
+                    // PAS IMPLEMENTER
+                    //gestionTransaction.getGestionChambre().afficherLibre();
+                }
+                else if (command.equals("afficherClient"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idClient
+                    gestionTransaction.getGestionClient().afficher(param1);
+                }
+                else if (command.equals("afficherChambre"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idChambre
+                    gestionTransaction.getGestionChambre().afficher(param1);
+                }
+                else if (command.equals("reserver"))
+                {
+                    // Lecture des parametres
+                    int param1 = readInt(tokenizer);            // idClient
+                    int param2 = readInt(tokenizer);            // idChambre
+                    Date param3 = readDate(tokenizer);          // dateDebut
+                    Date param4 = readDate(tokenizer);          // dateFin
+                    gestionTransaction.getGestionReservation().reserver(param1, param2, param3, param4);
+                }
+                else if (command.equals("quitter"))
+                {
+                    // Quitter l'application
+                    return;
                 }
                 else
                 {
