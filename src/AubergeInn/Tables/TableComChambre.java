@@ -24,9 +24,9 @@ public class TableComChambre {
 
         stmtListeComParChambre = cx.getConnection()
                 .prepareStatement("select commodite_id, chambre_id"
-                        + "from Auberge-Inn.CommoditesChambres where chambre_id = ?");
+                        + "from CommoditesChambres where chambre_id = ?");
         stmtListeChambreWithCom = cx.getConnection().prepareStatement(
-                "select distinct chambre_id from Auberge-Inn.CommoditesChambres");
+                "select distinct chambre_id from CommoditesChambres");
 
         stmtInsert = cx.getConnection().prepareStatement(
                 "insert into CommoditesChambres (commodite_id, chambre_id) " + "values (?,?)");

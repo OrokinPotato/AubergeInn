@@ -29,11 +29,11 @@ public class GestionnaireTransaction {
         this.cx = cx;
 
         // Creation des tables
-        chambre = new TableChambres(cx);
-        client = new TableClients(cx);
-        commodite = new TableCommodites(cx);
-        reservations = new TableReservations(cx);
-        comChambre = new TableComChambre(cx);
+        chambre = new TableChambres(this.cx);
+        client = new TableClients(this.cx);
+        commodite = new TableCommodites(this.cx);
+        reservations = new TableReservations(this.cx);
+        comChambre = new TableComChambre(this.cx);
 
         //Creation des gestionnaires
         gChambre = new GestionChambre(chambre,reservations, comChambre);

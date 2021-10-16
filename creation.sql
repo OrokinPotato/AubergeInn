@@ -1,10 +1,6 @@
 -- Database: AubergeInn
-BEGIN;
-DROP SCHEMA IF EXISTS "Auberge-Inn" CASCADE;
 
-CREATE SCHEMA "Auberge-Inn";
-
-CREATE TABLE "Auberge-Inn"."Clients"
+CREATE TABLE Clients
 (
 	id INTEGER NOT NULL,
 	prenom VARCHAR(50) NOT NULL,
@@ -16,7 +12,7 @@ CREATE TABLE "Auberge-Inn"."Clients"
 );
 
 
-CREATE TABLE "Auberge-Inn"."Chambres"
+CREATE TABLE Chambres
 (
 	id INTEGER NOT NULL,
 	nom VARCHAR(50) NOT NULL,
@@ -28,7 +24,8 @@ CREATE TABLE "Auberge-Inn"."Chambres"
 );
 
 
-CREATE TABLE "Auberge-Inn"."Commodites"(
+CREATE TABLE Commodites
+(
 	id INTEGER NOT NULL,
 	description VARCHAR(255) NOT NULL,
 	prix DECIMAL(12,2) NOT NULL,
@@ -38,18 +35,20 @@ CREATE TABLE "Auberge-Inn"."Commodites"(
 );
 
 
-CREATE TABLE "Auberge-Inn"."CommoditesChambres"(
+CREATE TABLE CommoditesChambres
+(
 	commodite_Id INTEGER NOT NULL,
 	chambre_Id INTEGER NOT NULL,
 	CONSTRAINT "CommoditesChambres_cc0" PRIMARY KEY (commodite_Id, chambre_Id),
 	CONSTRAINT "CommoditesChambres_cr0" FOREIGN KEY (commodite_Id)
-		REFERENCES "Auberge-Inn"."Commodites"(id),
+		REFERENCES Commodites(id),
 	CONSTRAINT "CommoditesChambres_cr1" FOREIGN KEY (chambre_Id)
-		REFERENCES "Auberge-Inn"."Chambres"(id)
+		REFERENCES Chambres(id)
 );
 
 
-CREATE TABLE "Auberge-Inn"."Reservations"(
+CREATE TABLE Reservations
+(
 	client_Id INTEGER NOT NULL,
 	chambre_Id INTEGER NOT NULL,
 	date_Debut DATE NOT NULL,
@@ -59,8 +58,7 @@ CREATE TABLE "Auberge-Inn"."Reservations"(
 	CONSTRAINT "Reservations_cc1" CHECK (date_Fin >= date_Debut),
 	CONSTRAINT "Reservations_cc2" CHECK (prix_Total >= 0.00),
 	CONSTRAINT "Reservations_cr0" FOREIGN KEY (client_Id)
-		REFERENCES "Auberge-Inn"."Clients"(id),
+		REFERENCES Clients(id),
 	CONSTRAINT "Reservations_cr1" FOREIGN KEY (chambre_Id)
-		REFERENCES "Auberge-Inn"."Chambres"(id)
+		REFERENCES Chambres(id)
 	);
-COMMIT;

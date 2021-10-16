@@ -22,17 +22,21 @@ public class TableChambres {
                 .prepareStatement("select Chambres.id, Chambres.nom, Chambres.type_lit, Chambres.prix, " +
                         "CommoditesChambres.commodite_id from Chambres " +
                         "inner join CommoditesChambres on Chambres.id = CommoditesChambres.chambre_id");
-        stmtExiste = cx.getConnection().prepareStatement("select id, nom, type_lit, prix from Chambres where idmembre = ?");
+        stmtExiste = cx.getConnection().prepareStatement("select id, nom, type_lit, prix from Chambres where id = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into Chambres (id, nom, type_lit, prix) " + "values (?,?,?,0)");
         stmtDelete = cx.getConnection().prepareStatement("delete from Chambres where id = ?");
 
-
-        //TODO
-        // Si on peut avoir une requête qui a de l'allure
         stmtAfficherLibre = cx.getConnection()
-                .prepareStatement("");
+                .prepareStatement("select distinct ch.id, ch.nom, ch.type_lit, (ch.prix + Total.total) as TotalPrix" +
+                        "from (select CH.id ,sum(co.prix) As total" +
+                        "      from Commodites CO" +
+                        "               inner join CommoditesChambres CC on CO.id = CC.commodite_id" +
+                        "               inner join Chambres CH on CH.id = CC.chambre_id" +
+                        "      group by CH.id) as Total" +
+                        "inner join Chambres as ch on ch.id = Total.id" +
+                        "inner join CommoditesChambres as co on ch.id = co.chambre_id" +
+                        "where ch.id not in (select chambre_id from Reservations)");
     }
-
 
     public Connexion getConnexion() {
         return cx;
@@ -91,8 +95,7 @@ public class TableChambres {
     }
     public void afficherChambresLibres() throws SQLException
     {
-        //TODO
-        // Pas sure qu'on puisse faire ça sans avoir une grosse requête dégeux
+        stmtAfficherLibre.executeUpdate();
     }
 
 }

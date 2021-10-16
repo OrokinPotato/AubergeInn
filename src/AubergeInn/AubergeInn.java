@@ -152,11 +152,7 @@ public class AubergeInn
                 else if (command.equals("afficherChambresLibres"))
                 {
                     // Aucun parametres
-
-                    //TODO
-                    // PAS IMPLEMENTER
-                    throw new IFT287Exception("Commande pas implémenter :/");
-                    //gestionTransaction.getGestionChambre().afficherLibre();
+                    gestionTransaction.getGestionChambre().afficherLibre();
                 }
                 else if (command.equals("afficherClient"))
                 {

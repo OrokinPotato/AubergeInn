@@ -1,11 +1,7 @@
-BEGIN;
 
-DROP TABLE IF EXISTS "Auberge-Inn"."CommoditesChambres";
-DROP TABLE IF EXISTS "Auberge-Inn"."Commodites";
-DROP TABLE IF EXISTS "Auberge-Inn"."Reservations";
-DROP TABLE IF EXISTS "Auberge-Inn"."Clients";
-DROP TABLE IF EXISTS "Auberge-Inn"."Chambres";
+DROP TABLE IF EXISTS CommoditesChambres;
+DROP TABLE IF EXISTS Commodites;
+DROP TABLE IF EXISTS Reservations;
+DROP TABLE IF EXISTS Clients;
+DROP TABLE IF EXISTS Chambres;
 
-DROP SCHEMA IF EXISTS "Auberge-Inn" CASCADE;
-
-COMMIT;

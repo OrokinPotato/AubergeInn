@@ -22,7 +22,7 @@ public class GestionChambre {
         throws IFT287Exception
     {
         this.cx = ch.getConnexion();
-        if (this.cx == r.getConnexion() || this.cx == cc.getConnexion()) {
+        if (this.cx != r.getConnexion() || this.cx != cc.getConnexion()) {
             throw new IFT287Exception("Differente connexions entre les table Chambres, Reservations, et CommoditeChambres");
         }
         this.chambres = ch;
@@ -38,7 +38,6 @@ public class GestionChambre {
     {
         try
         {
-
             if (chambres.existe(idChambre)) {
                 throw new IFT287Exception("Chambre déjà présente dans la base de données.");
             }
@@ -113,8 +112,8 @@ public class GestionChambre {
     {
         try
         {
-
-
+            chambres.afficherChambresLibres();
+            cx.commit();
         }
         catch (Exception e)
         {
