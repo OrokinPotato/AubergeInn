@@ -12,15 +12,12 @@ public class TableCommodites {
 
     private Connexion cx;
     private PreparedStatement stmtExiste;
-    private PreparedStatement stmtAfficher;
     private PreparedStatement stmtInsert;
-    private PreparedStatement stmtDelete;
 
-    public TableCommodites(Connexion cx) {
+    public TableCommodites(Connexion cx) throws SQLException {
         this.cx = cx;
-        stmtExiste = cx.getConnection().prepareStatement();
-        stmtInsert = cx.getConnection().prepareStatement();
-        stmtDelete = cx.getConnection().prepareStatement();
+        stmtExiste = cx.getConnection().prepareStatement("select id, description, prix from Commodites where id = ?");
+        stmtInsert = cx.getConnection().prepareStatement("insert into Commodites (id, description, prix) " + "values (?,?,?)");
     }
 
 

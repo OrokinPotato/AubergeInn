@@ -14,25 +14,21 @@ public class TableReservations {
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
-    public TableReservations(Connexion cx) {
+    public TableReservations(Connexion cx) throws SQLException{
         this.cx = cx;
 
-        stmtExiste = cx.getConnection().prepareStatement(
-
-        );
-        stmtInsert = cx.getConnection().prepareStatement(
-
-        );
-        stmtDelete = cx.getConnection().prepareStatement(
-
-        );
+        stmtExiste = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin, prix_Total "
+                + "from Reservations where client_Id = ? and chambre_Id= ? and date_debut=?");
+        stmtInsert = cx.getConnection().prepareStatement("insert into Reservations (client_Id, chambre_Id, date_Debut, date_Fin, prix_Total) "
+                + "values (?,?,to_date(?,'YYYY-MM-DD'),to_date(?,'YYYY-MM-DD'),? )");
+        stmtDelete = cx.getConnection().prepareStatement("delete from Reservations where client_Id = ? and chambre_Id = ? and date_Debut = ?");
     }
 
-    public boolean existe(int clientId, int chambreId) throws SQLException
+    public boolean existe(int clientId, int chambreId, Date dateDebut) throws SQLException
     {
         stmtExiste.setInt(1, clientId);
         stmtExiste.setInt(2, chambreId);
-        //stmtExiste.setDate(3, dateDebut);
+        stmtExiste.setDate(3, dateDebut);
         ResultSet set = stmtExiste.executeQuery();
         boolean reservationExiste = set.next();
         set.close();

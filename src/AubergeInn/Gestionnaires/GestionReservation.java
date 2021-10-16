@@ -51,7 +51,7 @@ public class GestionReservation {
             {
                 throw new IFT287Exception("Le client " + clientId + " n'existe pas dans la base de données");
             }
-            if (reservations.existe(clientId, chambreId)) {
+            if (reservations.existe(clientId, chambreId, dateDebut)) {
                 throw new IFT287Exception("La réservation client " + clientId + " + chambre " + chambreId + "déjà existante");
             }
             if (dateDebut.after(dateFin)) {

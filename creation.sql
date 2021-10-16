@@ -55,7 +55,7 @@ CREATE TABLE "Auberge-Inn"."Reservations"(
 	date_Debut DATE NOT NULL,
 	date_Fin DATE NOT NULL,
 	prix_Total DECIMAL(12,2) NOT NULL,
-	CONSTRAINT "Reservations_cc0" PRIMARY KEY (client_Id, chambre_Id),
+	CONSTRAINT "Reservations_cc0" PRIMARY KEY (client_Id, chambre_Id, date_Debut),
 	CONSTRAINT "Reservations_cc1" CHECK (date_Fin >= date_Debut),
 	CONSTRAINT "Reservations_cc2" CHECK (prix_Total >= 0.00),
 	CONSTRAINT "Reservations_cr0" FOREIGN KEY (client_Id)

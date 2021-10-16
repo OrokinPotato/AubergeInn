@@ -22,15 +22,9 @@ public class TableChambres {
                 .prepareStatement("select Chambres.id, Chambres.nom, Chambres.type_lit, Chambres.prix, " +
                         "CommoditesChambres.commodite_id from Chambres " +
                         "inner join CommoditesChambres on Chambres.id = CommoditesChambres.chambre_id");
-        stmtExiste = cx.getConnection().prepareStatement(
-
-        );
-        stmtInsert = cx.getConnection().prepareStatement(
-
-        );
-        stmtDelete = cx.getConnection().prepareStatement(
-
-        );
+        stmtExiste = cx.getConnection().prepareStatement("select id, nom, type_lit, prix from Chambres where idmembre = ?");
+        stmtInsert = cx.getConnection().prepareStatement("insert into Chambres (id, nom, type_lit, prix) " + "values (?,?,?,0)");
+        stmtDelete = cx.getConnection().prepareStatement("delete from Chambres where id = ?");
 
 
         //TODO
