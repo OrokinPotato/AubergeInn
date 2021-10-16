@@ -17,10 +17,10 @@ public class TableReservations {
     public TableReservations(Connexion cx) throws SQLException{
         this.cx = cx;
 
-        stmtExiste = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin, prix_Total "
+        stmtExiste = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin "
                 + "from Reservations where client_Id = ? and chambre_Id= ? and date_debut=?");
-        stmtInsert = cx.getConnection().prepareStatement("insert into Reservations (client_Id, chambre_Id, date_Debut, date_Fin, prix_Total) "
-                + "values (?,?,to_date(?,'YYYY-MM-DD'),to_date(?,'YYYY-MM-DD'),? )");
+        stmtInsert = cx.getConnection().prepareStatement("insert into Reservations (client_Id, chambre_Id, date_Debut, date_Fin) "
+                + "values (?,?,to_date(?,'YYYY-MM-DD'),to_date(?,'YYYY-MM-DD'))");
         stmtDelete = cx.getConnection().prepareStatement("delete from Reservations where client_Id = ? and chambre_Id = ? and date_Debut = ?");
     }
 
@@ -72,9 +72,10 @@ public class TableReservations {
                     rset.getInt(1),
                     rset.getInt(2),
                     rset.getDate(3),
-                    rset.getDate(4),
-                    rset.getDouble(5)
+                    rset.getDate(4)
             );
+            //        rset.getDouble(5)
+            //);
             listeReservations.add(reservation);
         }
         rset.close();
@@ -86,13 +87,13 @@ public class TableReservations {
         }
     }
 
-    public void reserver(int clientId, int chambreId, Date dateDebut, Date dateFin, double resPrix) throws SQLException
+    public void reserver(int clientId, int chambreId, Date dateDebut, Date dateFin) throws SQLException
     {
         stmtInsert.setInt(1, clientId);
         stmtInsert.setInt(2, chambreId);
         stmtInsert.setDate(3, dateDebut);
         stmtInsert.setDate(4, dateFin);
-        stmtInsert.setDouble(5, resPrix);
+        //stmtInsert.setDouble(5, resPrix);
         stmtInsert.executeUpdate();
     }
 }

@@ -58,6 +58,7 @@ public class GestionReservation {
                 throw new IFT287Exception("La date de fin est avant la date de début");
             }
 
+            /**
             //Calcul du prix de la reservation
             TupleChambre tuChambre = chambres.getChambre(chambreId);
             if (tuChambre == null) {
@@ -70,8 +71,8 @@ public class GestionReservation {
                 TupleCommodite tuCom = commodites.getCommodite(i.getCommoditeId());
                 resPrix += tuCom.getPrix();
             }
-
-            reservations.reserver(clientId, chambreId, dateDebut, dateFin, resPrix);
+            **/
+            reservations.reserver(clientId, chambreId, dateDebut, dateFin); //, resPrix);
 
             cx.commit();
         }

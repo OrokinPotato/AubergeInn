@@ -21,21 +21,13 @@ public class TableChambres {
         stmtAfficher = cx.getConnection()
                 .prepareStatement("select Chambres.id, Chambres.nom, Chambres.type_lit, Chambres.prix, " +
                         "CommoditesChambres.commodite_id from Chambres " +
-                        "inner join CommoditesChambres on Chambres.id = CommoditesChambres.chambre_id");
+                        "inner join CommoditesChambres on Chambres.id = CommoditesChambres.chambre_id where Chambres.id = ?");
         stmtExiste = cx.getConnection().prepareStatement("select id, nom, type_lit, prix from Chambres where id = ?");
-        stmtInsert = cx.getConnection().prepareStatement("insert into Chambres (id, nom, type_lit, prix) " + "values (?,?,?,0)");
+        stmtInsert = cx.getConnection().prepareStatement("insert into Chambres (id, nom, type_lit, prix) " + "values (?,?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from Chambres where id = ?");
 
         stmtAfficherLibre = cx.getConnection()
-                .prepareStatement("select distinct ch.id, ch.nom, ch.type_lit, (ch.prix + Total.total) as TotalPrix" +
-                        "from (select CH.id ,sum(co.prix) As total" +
-                        "      from Commodites CO" +
-                        "               inner join CommoditesChambres CC on CO.id = CC.commodite_id" +
-                        "               inner join Chambres CH on CH.id = CC.chambre_id" +
-                        "      group by CH.id) as Total" +
-                        "inner join Chambres as ch on ch.id = Total.id" +
-                        "inner join CommoditesChambres as co on ch.id = co.chambre_id" +
-                        "where ch.id not in (select chambre_id from Reservations)");
+                .prepareStatement("select distinct ch.id, ch.nom, ch.type_lit, (ch.prix + Total.total) as TotalPrix from (select CH.id ,sum(co.prix) As total from Commodites CO inner join CommoditesChambres CC on CO.id = CC.commodite_id inner join Chambres CH on CH.id = CC.chambre_id group by CH.id) as Total inner join Chambres as ch on ch.id = Total.id inner join CommoditesChambres as co on ch.id = co.chambre_id where ch.id not in (select chambre_id from Reservations)");
     }
 
     public Connexion getConnexion() {
@@ -91,6 +83,7 @@ public class TableChambres {
      */
     public void afficherChambre(int idChambre) throws SQLException
     {
+        stmtAfficher.setInt(1, idChambre);
         stmtAfficher.executeUpdate();
     }
     public void afficherChambresLibres() throws SQLException

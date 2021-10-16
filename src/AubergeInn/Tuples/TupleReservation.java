@@ -9,16 +9,16 @@ public class TupleReservation {
     private int chambreId;
     private Date dateDebut;
     private Date dateFin;
-    private double prixTotal;
+    //private double prixTotal;
 
     public TupleReservation() {}
 
-    public TupleReservation(int clientId, int chambreId, Date dateDebut, Date dateFin, double prixTotal) {
+    public TupleReservation(int clientId, int chambreId, Date dateDebut, Date dateFin) {
         this.clientId = clientId;
         this.chambreId = chambreId;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.prixTotal = prixTotal;
+        //this.prixTotal = prixTotal;
     }
 
     // Getters/Setters...
@@ -54,7 +54,7 @@ public class TupleReservation {
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
-
+    /**
     public double getPrixTotal() {
         return prixTotal;
     }
@@ -62,4 +62,5 @@ public class TupleReservation {
     public void setPrixTotal(double prixTotal) {
         this.prixTotal = prixTotal;
     }
+     **/
 }

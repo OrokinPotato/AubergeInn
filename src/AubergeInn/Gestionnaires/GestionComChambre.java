@@ -27,7 +27,7 @@ public class GestionComChambre {
         this.commodites = co;
     }
 
-    public void inclure(int chambreId, int commoditeId) throws SQLException, IFT287Exception
+    public void inclure(int commoditeId, int chambreId) throws SQLException, IFT287Exception
     {
         try
         {
@@ -35,10 +35,10 @@ public class GestionComChambre {
             {
                 throw new IFT287Exception("Chambre inexistante: " + chambreId);
             }
-            if (commodites.getCommodite(commoditeId) != null) {
+            if (commodites.getCommodite(commoditeId) == null) {
                 throw new IFT287Exception("Commodité inexistante: " + commoditeId);
             }
-            comChambre.inclureCommodite(chambreId, commoditeId);
+            comChambre.inclureCommodite(commoditeId, chambreId);
             cx.commit();
         }
         catch (Exception e)
@@ -56,7 +56,7 @@ public class GestionComChambre {
             if (chambres.getChambre(chambreId) == null) {
                 throw new IFT287Exception("Chambre inexistante: " + chambreId);
             }
-            if (commodites.getCommodite(commoditeId) != null) {
+            if (commodites.getCommodite(commoditeId) == null) {
                 throw new IFT287Exception("Commodité inexistante: " + commoditeId);
             }
 

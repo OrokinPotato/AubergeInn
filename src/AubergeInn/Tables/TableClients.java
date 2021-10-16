@@ -23,10 +23,10 @@ public class TableClients {
                 .prepareStatement("select id, prenom, nom, age from Clients where id = ?");
         stmtAfficher = cx.getConnection()
                 .prepareStatement("select Clients.id, Clients.prenom, Clients.nom, Clients.age, " +
-                "Reservations.chambre_id, Reservations.date_debut, Reservations.date_fin, Reservations.prix_total" +
-                " from Clients inner join Reservations on Clients.id = Reservations.client_id");
+                "Reservations.chambre_id, Reservations.date_debut, Reservations.date_fin" +
+                " from Clients inner join Reservations on Clients.id = Reservations.client_id where Clients.id = ?");
         stmtInsert = cx.getConnection().prepareStatement(
-                "insert into Clients (id, prenom, nom, age) " + "values (?,?,?,?,?)");
+                "insert into Clients (id, prenom, nom, age) " + "values (?,?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from Clients where id = ?");
     }
 
@@ -90,6 +90,7 @@ public class TableClients {
      */
     public void afficherClient(int idClient) throws SQLException
     {
+        stmtAfficher.setInt(1, idClient);
         stmtAfficher.executeUpdate();
     }
 
