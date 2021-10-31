@@ -1,7 +1,0 @@
-
-DROP TABLE IF EXISTS CommoditesChambres;
-DROP TABLE IF EXISTS Commodites;
-DROP TABLE IF EXISTS Reservations;
-DROP TABLE IF EXISTS Clients;
-DROP TABLE IF EXISTS Chambres;
-
