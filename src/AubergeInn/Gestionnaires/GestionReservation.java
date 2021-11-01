@@ -5,28 +5,23 @@ import AubergeInn.IFT287Exception;
 
 import AubergeInn.Tables.*;
 
-import AubergeInn.Tuples.TupleChambre;
-import AubergeInn.Tuples.TupleCommodite;
-import AubergeInn.Tuples.TupleCommoditeChambre;
-
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.List;
 
 public class GestionReservation {
 
     private Connexion cx;
-    private TableReservations reservations;
-    private TableChambres chambres;
-    private TableClients clients;
-    private TableComChambre comChambre;
-    private TableCommodites commodites;
+    private Reservations reservations;
+    private Chambres chambres;
+    private Clients clients;
+    private ComChambres comChambres;
+    private Commodites commodites;
 
-    public GestionReservation(TableReservations r,
-                              TableClients cl,
-                              TableChambres ch,
-                              TableComChambre cc,
-                              TableCommodites co)
+    public GestionReservation(Reservations r,
+                              Clients cl,
+                              Chambres ch,
+                              ComChambres cc,
+                              Commodites co)
             throws IFT287Exception
     {
         this.cx = r.getConnexion();
@@ -36,7 +31,7 @@ public class GestionReservation {
         this.reservations = r;
         this.chambres = ch;
         this.clients = cl;
-        this.comChambre = cc;
+        this.comChambres = cc;
         this.commodites = co;
     }
 
@@ -66,9 +61,9 @@ public class GestionReservation {
             }
             double resPrix = tuChambre.getPrix();
 
-            List<TupleCommoditeChambre> comListe = comChambre.getAllCommodite(chambreId);
-            for (TupleCommoditeChambre i : comListe) {
-                TupleCommodite tuCom = commodites.getCommodite(i.getCommoditeId());
+            List<CommoditeChambre> comListe = comChambre.getAllCommodite(chambreId);
+            for (CommoditeChambre i : comListe) {
+                Commodite tuCom = commodites.getCommodite(i.getCommoditeId());
                 resPrix += tuCom.getPrix();
             }
             **/

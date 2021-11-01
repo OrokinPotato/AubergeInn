@@ -2,18 +2,18 @@ package AubergeInn.Gestionnaires;
 
 import AubergeInn.Connexion;
 import AubergeInn.IFT287Exception;
-import AubergeInn.Tables.TableComChambre;
-import AubergeInn.Tables.TableCommodites;
+import AubergeInn.Tables.ComChambres;
+import AubergeInn.Tables.Commodites;
 
 import java.sql.SQLException;
 
 public class GestionCommodite {
 
     private Connexion cx;
-    private TableCommodites commodites;
-    private TableComChambre comChambre;
+    private Commodites commodites;
+    private ComChambres comChambre;
 
-    public GestionCommodite(TableCommodites c, TableComChambre ch) throws IFT287Exception {
+    public GestionCommodite(Commodites c, ComChambres ch) throws IFT287Exception {
         this.cx = c.getConnexion();
         if (c.getConnexion() != ch.getConnexion()) {
             throw new IFT287Exception("Differente connexions entre la table Commodites et la table CommoditeChambre");

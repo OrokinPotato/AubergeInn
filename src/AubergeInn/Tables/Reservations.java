@@ -1,20 +1,20 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.TupleReservation;
+import AubergeInn.Tuples.Reservation;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableReservations {
+public class Reservations {
 
     private Connexion cx;
     private PreparedStatement stmtExiste;
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
-    public TableReservations(Connexion cx) throws SQLException{
+    public Reservations(Connexion cx) throws SQLException{
         this.cx = cx;
 
         stmtExiste = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin "
@@ -43,7 +43,7 @@ public class TableReservations {
     /**
      * Choisir les réservations faites par un client
      */
-    public List<TupleReservation> getReservationsClient(int idClient) throws Exception {
+    public List<Reservation> getReservationsClient(int idClient) throws Exception {
 
         stmtExiste.setInt(1, idClient);
         ResultSet rset = stmtExiste.executeQuery();
@@ -55,20 +55,20 @@ public class TableReservations {
     /**
      * Choisir les réservations faites pour une chambre
      */
-    public List<TupleReservation> getReservationsChambre(int idChambre) throws SQLException{
+    public List<Reservation> getReservationsChambre(int idChambre) throws SQLException{
         stmtExiste.setInt(2, idChambre);
         ResultSet rset = stmtExiste.executeQuery();
 
         return getReservationsListFromResultSet(rset);
     }
 
-    private List<TupleReservation> getReservationsListFromResultSet(ResultSet rset) throws SQLException{
+    private List<Reservation> getReservationsListFromResultSet(ResultSet rset) throws SQLException{
 
-        List<TupleReservation> listeReservations = new LinkedList<>();
+        List<Reservation> listeReservations = new LinkedList<>();
 
         while (rset.next()) {
 
-            TupleReservation reservation = new TupleReservation(
+            Reservation reservation = new Reservation(
                     rset.getInt(1),
                     rset.getInt(2),
                     rset.getDate(3),

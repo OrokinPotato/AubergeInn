@@ -1,7 +1,7 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.TupleCommoditeChambre;
+import AubergeInn.Tuples.CommoditeChambre;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableComChambre {
+public class ComChambres {
 
     private Connexion cx;
     private final PreparedStatement stmtListeComParChambre;
@@ -18,7 +18,7 @@ public class TableComChambre {
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
-    public TableComChambre(Connexion cx) throws SQLException
+    public ComChambres(Connexion cx) throws SQLException
     {
         this.cx = cx;
 
@@ -54,17 +54,17 @@ public class TableComChambre {
         return chambreListe;
     }
 
-    public List<TupleCommoditeChambre> getAllCommodite(int chambreId)
+    public List<CommoditeChambre> getAllCommodite(int chambreId)
             throws SQLException
     {
         stmtListeComParChambre.setInt(1, chambreId);
         ResultSet set = stmtListeComParChambre.executeQuery();
 
-        List<TupleCommoditeChambre> comListe = new LinkedList<TupleCommoditeChambre>();
+        List<CommoditeChambre> comListe = new LinkedList<CommoditeChambre>();
 
         while (set.next())
         {
-            TupleCommoditeChambre tuComChambre = new TupleCommoditeChambre(
+            CommoditeChambre tuComChambre = new CommoditeChambre(
                     set.getInt("commodite_id"),
                     set.getInt("chambre_id"));
             comListe.add(tuComChambre);
