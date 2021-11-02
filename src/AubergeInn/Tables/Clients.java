@@ -1,11 +1,11 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.TupleClient;
+import AubergeInn.Tuples.Client;
 
 import java.sql.*;
 
-public class TableClients {
+public class Clients {
 
     private PreparedStatement stmtExiste;
     private PreparedStatement stmtAfficher;
@@ -16,7 +16,7 @@ public class TableClients {
     /**
      * Creation d'une instance. Précompilation d'énoncés SQL.
      */
-    public TableClients(Connexion cx) throws SQLException
+    public Clients(Connexion cx) throws SQLException
     {
         this.cx = cx;
         stmtExiste = cx.getConnection()
@@ -44,19 +44,19 @@ public class TableClients {
         return clientExiste;
     }
 
-    public TupleClient getClient(int id) throws SQLException
+    public Client getClient(int id) throws SQLException
     {
         stmtExiste.setInt(1, id);
         ResultSet set = stmtExiste.executeQuery();
         if (set.next())
         {
-            TupleClient tuClient = new TupleClient();
-            tuClient.setId(id);
-            tuClient.setPrenom(set.getString(2));
-            tuClient.setNom(set.getString(3));
-            tuClient.setAge(set.getInt(4));
+            Client client = new Client();
+            client.setId(id);
+            client.setPrenom(set.getString(2));
+            client.setNom(set.getString(3));
+            client.setAge(set.getInt(4));
             set.close();
-            return tuClient;
+            return client;
         }
         else
         {

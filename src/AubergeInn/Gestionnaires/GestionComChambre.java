@@ -10,11 +10,11 @@ public class GestionComChambre {
 
 
     private Connexion cx;
-    private TableComChambre comChambre;
-    private TableCommodites commodites;
-    private TableChambres chambres;
+    private ComChambres comChambre;
+    private Commodites commodites;
+    private Chambres chambres;
 
-    public GestionComChambre(TableChambres ch, TableComChambre cc, TableCommodites co)
+    public GestionComChambre(Chambres ch, ComChambres cc, Commodites co)
             throws IFT287Exception
     {
         this.cx = co.getConnexion();
