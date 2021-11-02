@@ -11,4 +11,7 @@ public class Reservations {
 
     public Reservations getReservationClient(Client c) {
     }
+
+    public Reservations getReservationChambre(Chambre c) {
+    }
 }

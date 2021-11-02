@@ -1,7 +1,5 @@
 package AubergeInn;
 
-import AubergeInn.Gestionnaires.*;
-
 public class GestionAuberge {
 
     private Connexion cx;
@@ -9,7 +7,7 @@ public class GestionAuberge {
     private Clients clients;
     private Commodites commodites;
     private Reservations reservations;
-    private ComChambre comChambres;
+    private CommoditeChambre comChambres;
     private GestionChambre gestionChambres;
     private GestionClient gestionClients;
     private GestionReservation gestionReservations;
@@ -26,7 +24,7 @@ public class GestionAuberge {
         clients = new Clients(cx);
         reservations = new Reservations(cx);
         commodites = new Commodites(cx);
-        comChambres = new ComChambre(cx);
+        comChambres = new CommoditeChambre(cx);
 
         setGestionChambres(new GestionChambre(chambres, reservations, comChambres));
         setGestionClients(new GestionClient(clients, reservations));

@@ -11,7 +11,7 @@ public class Client {
     @GeneratedValue
     private long m_id;
 
-    private int m_idClient;
+    private int m_idclient;
     private String m_prenom;
     private String m_nom;
     private int m_age;
@@ -23,7 +23,7 @@ public class Client {
     public Client(){}
 
     public Client(int idClient, String prenom, String nom, int age) {
-        m_idClient = idClient;
+        m_idclient = idClient;
         m_prenom = prenom;
         m_nom = nom;
         m_age = age;
@@ -35,7 +35,7 @@ public class Client {
     }
 
     public int getM_idClient() {
-        return m_idClient;
+        return m_idclient;
     }
 
     public String getM_prenom() {
@@ -52,4 +52,12 @@ public class Client {
 
     public void ajoutReservation(Reservation r){m_clientreservation.add(r);}
     public void supprimerReservation(Reservation r){m_clientreservation.remove(r);}
+
+    /**
+     *  Pour afficher un client
+     */
+    public String toString()
+    {
+        //TODO
+    }
 }

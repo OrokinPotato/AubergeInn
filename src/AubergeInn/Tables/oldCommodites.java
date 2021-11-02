@@ -1,19 +1,19 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.Commodite;
+import AubergeInn.Tuples.oldCommodite;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Commodites {
+public class oldCommodites {
 
     private Connexion cx;
     private PreparedStatement stmtExiste;
     private PreparedStatement stmtInsert;
 
-    public Commodites(Connexion cx) throws SQLException {
+    public oldCommodites(Connexion cx) throws SQLException {
         this.cx = cx;
         stmtExiste = cx.getConnection().prepareStatement("select id, description, prix from Commodites where id = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into Commodites (id, description, prix) " + "values (?,?,?)");
@@ -31,12 +31,12 @@ public class Commodites {
         set.close();
         return commoditeExiste;
     }
-    public Commodite getCommodite(int commoditeId) throws SQLException{
+    public oldCommodite getCommodite(int commoditeId) throws SQLException{
         stmtExiste.setInt(1, commoditeId);
         ResultSet set = stmtExiste.executeQuery();
         if (set.next())
         {
-            Commodite commodite = new Commodite();
+            oldCommodite commodite = new oldCommodite();
             commodite.setId(commoditeId);
             commodite.setDescription(set.getString(2));
             commodite.setPrix(set.getDouble(3));

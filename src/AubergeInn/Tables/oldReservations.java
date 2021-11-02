@@ -1,20 +1,20 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.Reservation;
+import AubergeInn.Tuples.oldReservation;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Reservations {
+public class oldReservations {
 
     private Connexion cx;
     private PreparedStatement stmtExiste;
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
-    public Reservations(Connexion cx) throws SQLException{
+    public oldReservations(Connexion cx) throws SQLException{
         this.cx = cx;
 
         stmtExiste = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin "
@@ -43,7 +43,7 @@ public class Reservations {
     /**
      * Choisir les réservations faites par un client
      */
-    public List<Reservation> getReservationsClient(int idClient) throws Exception {
+    public List<oldReservation> getReservationsClient(int idClient) throws Exception {
 
         stmtExiste.setInt(1, idClient);
         ResultSet rset = stmtExiste.executeQuery();
@@ -55,20 +55,20 @@ public class Reservations {
     /**
      * Choisir les réservations faites pour une chambre
      */
-    public List<Reservation> getReservationsChambre(int idChambre) throws SQLException{
+    public List<oldReservation> getReservationsChambre(int idChambre) throws SQLException{
         stmtExiste.setInt(2, idChambre);
         ResultSet rset = stmtExiste.executeQuery();
 
         return getReservationsListFromResultSet(rset);
     }
 
-    private List<Reservation> getReservationsListFromResultSet(ResultSet rset) throws SQLException{
+    private List<oldReservation> getReservationsListFromResultSet(ResultSet rset) throws SQLException{
 
-        List<Reservation> listeReservations = new LinkedList<>();
+        List<oldReservation> listeReservations = new LinkedList<>();
 
         while (rset.next()) {
 
-            Reservation reservation = new Reservation(
+            oldReservation reservation = new oldReservation(
                     rset.getInt(1),
                     rset.getInt(2),
                     rset.getDate(3),

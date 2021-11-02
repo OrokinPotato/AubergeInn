@@ -1,0 +1,67 @@
+package AubergeInn;
+
+import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
+
+@Entity
+public class Chambre {
+
+    @Id
+    @GeneratedValue
+    private long m_id;
+
+    private int m_idchambre;
+    private String m_nomchambre;
+    private String m_typelit;
+    private double m_prix;
+
+    @OneToMany(mappedBy = "m_chambre")
+    @OrderBy("m_datedebut")
+    private List<Reservation> m_chambrereservation;
+
+    //TODO:
+    // Avoir une liste de commodite vs commoditeChambre???
+    //@OneToMany(mappedBy = "m_chambre")
+    //private List<Commodite> m_chambrereservation;
+
+
+    public Chambre(int idChambre, String nomChambre, String typeLit, double prix) {
+        m_idchambre = idChambre;
+        m_nomchambre = nomChambre;
+        m_typelit = typeLit;
+        m_prix = prix;
+        m_chambrereservation = new LinkedList<Reservation>();
+    }
+
+    public long getM_id() {
+        return m_id;
+    }
+
+    public int getM_idchambre() {
+        return m_idchambre;
+    }
+
+    public String getM_nomchambre() {
+        return m_nomchambre;
+    }
+
+    public String getM_typelit() {
+        return m_typelit;
+    }
+
+    public double getM_prix() {
+        return m_prix;
+    }
+
+    public void ajoutReservation(Reservation r){m_chambrereservation.add(r);}
+    public void supprimerReservation(Reservation r){m_chambrereservation.remove(r);}
+
+    /**
+     *  Pour afficher une chambre
+     */
+    public String toString()
+    {
+        //TODO
+    }
+}

@@ -2,14 +2,14 @@ package AubergeInn.Tuples;
 
 // Permet de représenter un tuple de la table commodité.
 
-public class Commodite {
+public class oldCommodite {
 
     private int id;
     private String description;
     private double prix;
 
-    public Commodite() {}
-    public Commodite(int id, String description, double prix) {
+    public oldCommodite() {}
+    public oldCommodite(int id, String description, double prix) {
         this.id = id;
         this.description = description;
         this.prix = prix;

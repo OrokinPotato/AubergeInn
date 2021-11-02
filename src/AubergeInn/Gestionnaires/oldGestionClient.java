@@ -1,18 +1,18 @@
 package AubergeInn.Gestionnaires;
 
 import AubergeInn.*;
-import AubergeInn.Tables.Clients;
-import AubergeInn.Tables.Reservations;
+import AubergeInn.Tables.oldClients;
+import AubergeInn.Tables.oldReservations;
 
 import java.sql.*;
 
-public class GestionClient {
+public class oldGestionClient {
 
     private Connexion cx;
-    private Clients clients;
-    private Reservations reservations;
+    private oldClients clients;
+    private oldReservations reservations;
 
-    public GestionClient(Clients c, Reservations r) throws IFT287Exception {
+    public oldGestionClient(oldClients c, oldReservations r) throws IFT287Exception {
         this.cx = c.getConnexion();
         if (c.getConnexion() != r.getConnexion()) {
             throw new IFT287Exception("Differente connexions entre la table Clients et la table Reservation");

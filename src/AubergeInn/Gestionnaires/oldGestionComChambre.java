@@ -6,15 +6,15 @@ import AubergeInn.Tables.*;
 
 import java.sql.SQLException;
 
-public class GestionComChambre {
+public class oldGestionComChambre {
 
 
     private Connexion cx;
-    private ComChambres comChambre;
-    private Commodites commodites;
-    private Chambres chambres;
+    private oldComChambres comChambre;
+    private oldCommodites commodites;
+    private oldChambres chambres;
 
-    public GestionComChambre(Chambres ch, ComChambres cc, Commodites co)
+    public oldGestionComChambre(oldChambres ch, oldComChambres cc, oldCommodites co)
             throws IFT287Exception
     {
         this.cx = co.getConnexion();

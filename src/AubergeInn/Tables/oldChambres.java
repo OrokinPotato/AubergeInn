@@ -1,11 +1,11 @@
 package AubergeInn.Tables;
 
 import AubergeInn.Connexion;
-import AubergeInn.Tuples.Chambre;
+import AubergeInn.Tuples.oldChambre;
 
 import java.sql.*;
 
-public class Chambres {
+public class oldChambres {
 
     private Connexion cx;
     private PreparedStatement stmtExiste;
@@ -14,7 +14,7 @@ public class Chambres {
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
-    public Chambres(Connexion cx) throws SQLException
+    public oldChambres(Connexion cx) throws SQLException
     {
         this.cx = cx;
 
@@ -34,13 +34,13 @@ public class Chambres {
         return cx;
     }
 
-    public Chambre getChambre(int idChambre) throws SQLException
+    public oldChambre getChambre(int idChambre) throws SQLException
     {
         stmtExiste.setInt(1, idChambre);
         ResultSet set = stmtExiste.executeQuery();
         if (set.next())
         {
-            Chambre chambre = new Chambre();
+            oldChambre chambre = new oldChambre();
             chambre.setId(idChambre);
             chambre.setNom(set.getString(2));
             chambre.setType_lit(set.getString(3));

@@ -8,20 +8,20 @@ import AubergeInn.Tables.*;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class GestionReservation {
+public class oldGestionReservation {
 
     private Connexion cx;
-    private Reservations reservations;
-    private Chambres chambres;
-    private Clients clients;
-    private ComChambres comChambres;
-    private Commodites commodites;
+    private oldReservations reservations;
+    private oldChambres chambres;
+    private oldClients clients;
+    private oldComChambres comChambres;
+    private oldCommodites commodites;
 
-    public GestionReservation(Reservations r,
-                              Clients cl,
-                              Chambres ch,
-                              ComChambres cc,
-                              Commodites co)
+    public oldGestionReservation(oldReservations r,
+                                 oldClients cl,
+                                 oldChambres ch,
+                                 oldComChambres cc,
+                                 oldCommodites co)
             throws IFT287Exception
     {
         this.cx = r.getConnexion();

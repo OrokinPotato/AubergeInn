@@ -3,7 +3,7 @@ package AubergeInn.Tuples;
 import java.sql.*;
 // Permet de représenter un tuple de la table reservation.
 
-public class Reservation {
+public class oldReservation {
 
     private int clientId;
     private int chambreId;
@@ -11,9 +11,9 @@ public class Reservation {
     private Date dateFin;
     //private double prixTotal;
 
-    public Reservation() {}
+    public oldReservation() {}
 
-    public Reservation(int clientId, int chambreId, Date dateDebut, Date dateFin) {
+    public oldReservation(int clientId, int chambreId, Date dateDebut, Date dateFin) {
         this.clientId = clientId;
         this.chambreId = chambreId;
         this.dateDebut = dateDebut;

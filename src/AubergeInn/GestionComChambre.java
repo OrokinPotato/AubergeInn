@@ -1,7 +1,7 @@
 package AubergeInn;
 
 public class GestionComChambre {
-    public GestionComChambre(Commodites commodites, Chambres chambres, ComChambre comChambres) {
+    public GestionComChambre(Commodites commodites, Chambres chambres, CommoditeChambre comChambres) {
 
     }
 
