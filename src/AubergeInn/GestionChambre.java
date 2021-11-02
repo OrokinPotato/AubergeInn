@@ -1,21 +1,21 @@
 package AubergeInn;
 
+import java.util.List;
+
 public class GestionChambre {
 
     private Connexion cx;
     private Chambres chambres;
     private Reservations reservations;
-    private CommoditeChambre comChambres;
 
-    public GestionChambre(Chambres chambres, Reservations reservations, CommoditeChambre comChambres)
+    public GestionChambre(Chambres chambres, Reservations reservations)
             throws IFT287Exception
     {
         this.cx = chambres.getConnexion();
-        if (chambres.getConnexion() != reservations.getConnexion() || chambres.getConnexion() != comChambres.getConnexion())
+        if (chambres.getConnexion() != reservations.getConnexion())
             throw new IFT287Exception("Les collections d'objets n'utilisent pas la même connexion au serveur");
         this.chambres = chambres;
         this.reservations = reservations;
-        this.comChambres = comChambres;
     }
 
     /**
@@ -53,6 +53,8 @@ public class GestionChambre {
             cx.demarreTransaction();
 
             Chambre c = chambres.getChambre(idChambre);
+            List<Commodite> lCom = c.getM_commoditechambre();
+
             if (c == null)
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
@@ -61,7 +63,7 @@ public class GestionChambre {
             {
                 throw new IFT287Exception("Chambre encore réservée: " + idChambre);
             }
-            if (comChambres.getAllChambre() != null)
+            if (!lCom.isEmpty())
             {
                 throw new IFT287Exception("Commodites encore assignées à cette chambre: " + idChambre);
             }

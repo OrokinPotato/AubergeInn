@@ -20,10 +20,9 @@ public class Chambre {
     @OrderBy("m_datedebut")
     private List<Reservation> m_chambrereservation;
 
-    //TODO:
-    // Avoir une liste de commodite vs commoditeChambre???
-    //@OneToMany(mappedBy = "m_chambre")
-    //private List<Commodite> m_chambrereservation;
+
+    @OneToMany(mappedBy = "m_chambre")
+    private List<Commodite> m_commoditechambre;
 
 
     public Chambre(int idChambre, String nomChambre, String typeLit, double prix) {
@@ -32,6 +31,7 @@ public class Chambre {
         m_typelit = typeLit;
         m_prix = prix;
         m_chambrereservation = new LinkedList<Reservation>();
+        m_commoditechambre = new LinkedList<Commodite>();
     }
 
     public long getM_id() {
@@ -54,8 +54,15 @@ public class Chambre {
         return m_prix;
     }
 
+    public List<Commodite> getM_commoditechambre() {
+        return m_commoditechambre;
+    }
+
     public void ajoutReservation(Reservation r){m_chambrereservation.add(r);}
     public void supprimerReservation(Reservation r){m_chambrereservation.remove(r);}
+
+    public void ajoutCommodite(Commodite c){m_commoditechambre.add(c);}
+    public void supprimerCommodite(Commodite c){m_commoditechambre.remove(c);}
 
     /**
      *  Pour afficher une chambre

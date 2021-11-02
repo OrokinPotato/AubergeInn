@@ -7,7 +7,7 @@ public class GestionAuberge {
     private Clients clients;
     private Commodites commodites;
     private Reservations reservations;
-    private CommoditeChambre comChambres;
+
     private GestionChambre gestionChambres;
     private GestionClient gestionClients;
     private GestionReservation gestionReservations;
@@ -24,13 +24,12 @@ public class GestionAuberge {
         clients = new Clients(cx);
         reservations = new Reservations(cx);
         commodites = new Commodites(cx);
-        comChambres = new CommoditeChambre(cx);
 
-        setGestionChambres(new GestionChambre(chambres, reservations, comChambres));
+        setGestionChambres(new GestionChambre(chambres, reservations));
         setGestionClients(new GestionClient(clients, reservations));
         setGestionCommodites(new GestionCommodite(commodites));
         setGestionReservations(new GestionReservation(reservations, clients));
-        setGestionComChambre(new GestionComChambre(commodites, chambres, comChambres));
+        setGestionComChambre(new GestionComChambre(commodites, chambres));
     }
 
     public void fermer()
