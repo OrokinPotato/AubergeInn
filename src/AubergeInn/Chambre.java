@@ -11,7 +11,7 @@ public class Chambre {
     @GeneratedValue
     private long m_id;
 
-    private int m_idchambre;
+    private int m_idChambre;
     private String m_nomchambre;
     private String m_typelit;
     private double m_prix;
@@ -20,13 +20,14 @@ public class Chambre {
     @OrderBy("m_datedebut")
     private List<Reservation> m_chambrereservation;
 
-
-    @OneToMany(mappedBy = "m_chambre")
+    @ManyToMany(targetEntity = Commodite.class, cascade = {CascadeType.ALL})
+    @JoinTable(name = "comChambre", joinColumns = { @JoinColumn(name = "idChambre") },
+            inverseJoinColumns = { @JoinColumn(name = "idCommodite") })
     private List<Commodite> m_commoditechambre;
 
 
     public Chambre(int idChambre, String nomChambre, String typeLit, double prix) {
-        m_idchambre = idChambre;
+        m_idChambre = idChambre;
         m_nomchambre = nomChambre;
         m_typelit = typeLit;
         m_prix = prix;
@@ -38,8 +39,8 @@ public class Chambre {
         return m_id;
     }
 
-    public int getM_idchambre() {
-        return m_idchambre;
+    public int getM_idChambre() {
+        return m_idChambre;
     }
 
     public String getM_nomchambre() {

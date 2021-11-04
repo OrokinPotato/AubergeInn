@@ -11,7 +11,7 @@ public class Client {
     @GeneratedValue
     private long m_id;
 
-    private int m_idclient;
+    private int m_idClient;
     private String m_prenom;
     private String m_nom;
     private int m_age;
@@ -23,7 +23,7 @@ public class Client {
     public Client(){}
 
     public Client(int idClient, String prenom, String nom, int age) {
-        m_idclient = idClient;
+        m_idClient = idClient;
         m_prenom = prenom;
         m_nom = nom;
         m_age = age;
@@ -35,7 +35,7 @@ public class Client {
     }
 
     public int getM_idClient() {
-        return m_idclient;
+        return m_idClient;
     }
 
     public String getM_prenom() {
