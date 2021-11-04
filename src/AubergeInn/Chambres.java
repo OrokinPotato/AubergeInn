@@ -6,11 +6,13 @@ import java.util.List;
 public class Chambres {
 
     private TypedQuery<Chambre> stmtExiste;
+    private TypedQuery<Chambre> stmtSelectAll;
     private Connexion cx;
 
     public Chambres(Connexion cx) {
         this.cx = cx;
         stmtExiste = cx.getConnection().createQuery("select c from Chambre c where c.m_idChambre = :idChambre", Chambre.class);
+        stmtSelectAll = cx.getConnection().createQuery("select c from Chambre c", Chambre.class);
     }
 
     public Connexion getConnexion() {
@@ -23,6 +25,18 @@ public class Chambres {
         if (!lChambre.isEmpty())
         {
             return lChambre.get(0);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public List<Chambre> getAllChambre(){
+        List<Chambre> lChambre = stmtSelectAll.getResultList();
+        if (!lChambre.isEmpty())
+        {
+            return lChambre;
         }
         else
         {

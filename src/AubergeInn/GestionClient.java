@@ -76,7 +76,24 @@ public class GestionClient {
     /**
      *  Commande d'affichage des informations sur un client.
      */
-    public void afficherClient(int idClient) {
+    public void afficherClient(int idClient) throws IFT287Exception {
+        try {
+            cx.demarreTransaction();
 
+            if (clients.existe(idClient))
+            {
+                throw new IFT287Exception("Client inexistant: " + idClient);
+            }
+
+            Client c = clients.getClient(idClient);
+            System.out.println(c.print());
+
+            cx.commit();
+        }
+        catch (Exception e)
+        {
+            cx.rollback();
+            throw e;
+        }
     }
 }

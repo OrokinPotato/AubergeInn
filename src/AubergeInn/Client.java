@@ -56,8 +56,23 @@ public class Client {
     /**
      *  Pour afficher un client
      */
-    public String toString()
+    public String print()
     {
-        //TODO
+        StringBuffer toPrint = new StringBuffer("");
+        toPrint.append("Identifiant du client: " + m_idClient + "\n");
+        toPrint.append("Nom: " + m_nom + "\n");
+        toPrint.append("Prenom: " + m_prenom + "\n");
+        toPrint.append("Age: " + m_age + "\n");
+        toPrint.append("Réservation du client: \n");
+        for (Reservation r:m_clientreservation) {
+            toPrint.append("------\n");
+            Chambre c = r.getM_chambre();
+            toPrint.append("Identifiant de la chambre: " + c.getM_idChambre() + "$\n");
+            toPrint.append("Date de début: "+ r.getM_datedebut().toString());
+            toPrint.append("Date de Fin: "+ r.getM_dateFin().toString());
+            toPrint.append("Prix: " + c.getPrixTotal() + "$\n");
+            toPrint.append("------\n");
+        }
+        return toPrint.toString();
     }
 }

@@ -81,9 +81,46 @@ public class GestionChambre {
         }
     }
 
-    public void afficherChambresLibres() {
+    public void afficherChambre(int idChambre) throws IFT287Exception
+    {
+        try {
+            cx.demarreTransaction();
+
+            if (chambres.existe(idChambre))
+            {
+                throw new IFT287Exception("Chambre inexistante: " + idChambre);
+            }
+
+            Chambre c = chambres.getChambre(idChambre);
+            System.out.println(c.print());
+
+            cx.commit();
+        }
+        catch (Exception e)
+        {
+            cx.rollback();
+            throw e;
+        }
     }
 
-    public void afficherChambre(int idChambre) {
+    public void afficherChambresLibres() {
+        try {
+            cx.demarreTransaction();
+            List<Chambre> lChambre = chambres.getAllChambre();
+
+            for (Chambre c:lChambre)
+            {
+                if (c.getM_chambrereservation().isEmpty())
+                {
+                    System.out.println(c.print());
+                }
+            }
+            cx.commit();
+        }
+        catch (Exception e)
+        {
+            cx.rollback();
+            throw  e;
+        }
     }
 }

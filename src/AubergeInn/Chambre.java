@@ -54,7 +54,18 @@ public class Chambre {
     public double getM_prix() {
         return m_prix;
     }
+    public double getPrixTotal()
+    {
+        double fPrix = 0;
+        for (Commodite c:m_commoditechambre) {
+            fPrix += c.getM_prix();
+        }
+        return fPrix + m_prix;
+    }
 
+    public List<Reservation> getM_chambrereservation() {
+        return m_chambrereservation;
+    }
     public List<Commodite> getM_commoditechambre() {
         return m_commoditechambre;
     }
@@ -68,8 +79,21 @@ public class Chambre {
     /**
      *  Pour afficher une chambre
      */
-    public String toString()
+    public String print()
     {
-        //TODO
+        StringBuffer toPrint = new StringBuffer("");
+        toPrint.append("Identifiant de chambre: " + m_idChambre + "\n");
+        toPrint.append("Nom de chambre: " + m_nomchambre + "\n");
+        toPrint.append("Type de lit: " + m_typelit + "\n");
+        toPrint.append("Prix de base: " + m_prix + "$\n");
+        toPrint.append("Commoditées offertes: \n");
+        for (Commodite c:m_commoditechambre) {
+            toPrint.append("------\n");
+            toPrint.append("Identifiant do commodité: " + c.getM_idcom() + "\n");
+            toPrint.append("Description: " + c.getM_desc() + "\n");
+            toPrint.append("Prix: " + c.getM_prix() + "$\n");
+            toPrint.append("------\n");
+        }
+        return toPrint.toString();
     }
 }

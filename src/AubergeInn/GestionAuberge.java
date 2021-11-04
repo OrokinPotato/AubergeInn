@@ -28,7 +28,7 @@ public class GestionAuberge {
         setGestionChambres(new GestionChambre(chambres, reservations));
         setGestionClients(new GestionClient(clients, reservations));
         setGestionCommodites(new GestionCommodite(commodites));
-        setGestionReservations(new GestionReservation(reservations, clients));
+        setGestionReservations(new GestionReservation(reservations, clients, chambres));
         setGestionComChambre(new GestionComChambre(commodites, chambres));
     }
 
