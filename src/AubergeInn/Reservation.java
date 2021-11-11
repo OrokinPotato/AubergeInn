@@ -31,6 +31,10 @@ public class Reservation {
         m_chambre = ch;
     }
 
+    public Reservation() {
+
+    }
+
     public long getM_id() {
         return m_id;
     }

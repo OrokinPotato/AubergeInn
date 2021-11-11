@@ -12,7 +12,7 @@ public class Chambre {
     private long m_id;
 
     private int m_idChambre;
-    private String m_nomchambre;
+    private String m_nomChambre;
     private String m_typelit;
     private double m_prix;
 
@@ -28,11 +28,15 @@ public class Chambre {
 
     public Chambre(int idChambre, String nomChambre, String typeLit, double prix) {
         m_idChambre = idChambre;
-        m_nomchambre = nomChambre;
+        m_nomChambre = nomChambre;
         m_typelit = typeLit;
         m_prix = prix;
         m_chambrereservation = new LinkedList<Reservation>();
         m_commoditechambre = new LinkedList<Commodite>();
+    }
+
+    public Chambre() {
+
     }
 
     public long getM_id() {
@@ -43,8 +47,8 @@ public class Chambre {
         return m_idChambre;
     }
 
-    public String getM_nomchambre() {
-        return m_nomchambre;
+    public String getM_nomChambre() {
+        return m_nomChambre;
     }
 
     public String getM_typelit() {
@@ -83,7 +87,7 @@ public class Chambre {
     {
         StringBuffer toPrint = new StringBuffer("");
         toPrint.append("Identifiant de chambre: " + m_idChambre + "\n");
-        toPrint.append("Nom de chambre: " + m_nomchambre + "\n");
+        toPrint.append("Nom de chambre: " + m_nomChambre + "\n");
         toPrint.append("Type de lit: " + m_typelit + "\n");
         toPrint.append("Prix de base: " + m_prix + "$\n");
         toPrint.append("Commoditées offertes: \n");

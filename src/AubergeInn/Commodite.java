@@ -11,7 +11,7 @@ public class Commodite {
     @GeneratedValue
     private long m_id;
 
-    private int m_idcom;
+    private int m_idCom;
     private String m_desc;
     private double m_prix;
 
@@ -19,10 +19,14 @@ public class Commodite {
     private List<Chambre> m_chambre;
 
     public Commodite(int idCom, String description, double prix) {
-        m_idcom = idCom;
+        m_idCom = idCom;
         m_desc = description;
         m_prix = prix;
         m_chambre = new LinkedList<Chambre>();
+    }
+
+    public Commodite() {
+
     }
 
     public long getM_id() {
@@ -30,7 +34,7 @@ public class Commodite {
     }
 
     public int getM_idcom() {
-        return m_idcom;
+        return m_idCom;
     }
 
     public String getM_desc() {
