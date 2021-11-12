@@ -3,14 +3,14 @@ package AubergeInn;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class Commodites {
+public class TableCommodites {
 
-    private TypedQuery<Commodite> stmtExiste;
+    private TypedQuery<TupleCommodite> stmtExiste;
     private Connexion cx;
 
-    public Commodites(Connexion cx) {
+    public TableCommodites(Connexion cx) {
         this.cx = cx;
-        stmtExiste = cx.getConnection().createQuery("select c from Commodite c where c.m_idCom = :idCom", Commodite.class);
+        stmtExiste = cx.getConnection().createQuery("select c from TupleCommodite c where c.m_idCom = :idCom", TupleCommodite.class);
     }
 
     public Connexion getConnexion() {
@@ -26,9 +26,9 @@ public class Commodites {
     /**
      * Lecture d'une commodite.
      */
-    public Commodite getCommodite(int idCom) {
+    public TupleCommodite getCommodite(int idCom) {
         stmtExiste.setParameter("idCom", idCom);
-        List<Commodite> lCom = stmtExiste.getResultList();
+        List<TupleCommodite> lCom = stmtExiste.getResultList();
         if (!lCom.isEmpty())
         {
             return lCom.get(0);
@@ -42,7 +42,7 @@ public class Commodites {
     /**
      * Ajout d'une nouvelle commodite.
      */
-    public Commodite ajouter(Commodite com) {
+    public TupleCommodite ajouter(TupleCommodite com) {
         cx.getConnection().persist(com);
         return com;
     }

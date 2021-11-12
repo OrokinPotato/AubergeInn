@@ -5,19 +5,19 @@ import java.util.Date;
 public class GestionReservation {
 
     private Connexion cx;
-    private Reservations reservations;
-    private Clients clients;
-    private Chambres chambres;
+    private TableReservations tableReservations;
+    private TableClients tableClients;
+    private TableChambres tableChambres;
 
-    public GestionReservation(Reservations reservations, Clients clients, Chambres chambres)
+    public GestionReservation(TableReservations tableReservations, TableClients tableClients, TableChambres tableChambres)
             throws IFT287Exception
     {
-        this.cx = reservations.getConnexion();
-        if (chambres.getConnexion() != reservations.getConnexion() || clients.getConnexion() != reservations.getConnexion())
+        this.cx = tableReservations.getConnexion();
+        if (tableChambres.getConnexion() != tableReservations.getConnexion() || tableClients.getConnexion() != tableReservations.getConnexion())
             throw new IFT287Exception("Les collections d'objets n'utilisent pas la même connexion au serveur");
-        this.reservations = reservations;
-        this.chambres = chambres;
-        this.clients = clients;
+        this.tableReservations = tableReservations;
+        this.tableChambres = tableChambres;
+        this.tableClients = tableClients;
     }
 
     public void reserver(int idClient, int idChambre, Date dateDebut, Date dateFin)
@@ -26,11 +26,11 @@ public class GestionReservation {
         try {
             cx.demarreTransaction();
 
-            if (!clients.existe(idClient))
+            if (!tableClients.existe(idClient))
             {
                 throw new IFT287Exception("Client inexistant: " + idClient);
             }
-            if (!chambres.existe(idChambre))
+            if (!tableChambres.existe(idChambre))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
@@ -40,16 +40,16 @@ public class GestionReservation {
                 throw new IFT287Exception("La date de début est après la date de fin: " + dateDebut + ">" + dateFin);
             }
 
-            Client cl = clients.getClient(idClient);
-            Chambre ch = chambres.getChambre(idChambre);
-            if (reservations.existe(cl, ch))
+            TupleClient cl = tableClients.getClient(idClient);
+            TupleChambre ch = tableChambres.getChambre(idChambre);
+            if (tableReservations.existe(cl, ch))
             {
                 throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre);
             }
 
-            Reservation r = new Reservation(cl, ch, dateDebut, dateFin);
+            TupleReservation r = new TupleReservation(cl, ch, dateDebut, dateFin);
 
-            reservations.reserver(r);
+            tableReservations.reserver(r);
             cl.ajoutReservation(r);
             ch.ajoutReservation(r);
 

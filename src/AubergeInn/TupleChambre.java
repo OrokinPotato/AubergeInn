@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-public class Chambre {
+public class TupleChambre {
 
     @Id
     @GeneratedValue
@@ -18,24 +18,24 @@ public class Chambre {
 
     @OneToMany(mappedBy = "m_chambre")
     @OrderBy("m_datedebut")
-    private List<Reservation> m_chambrereservation;
+    private List<TupleReservation> m_chambrereservation;
 
-    @ManyToMany(targetEntity = Commodite.class, cascade = {CascadeType.ALL})
+    @ManyToMany(targetEntity = TupleCommodite.class, cascade = {CascadeType.ALL})
     @JoinTable(name = "comChambre", joinColumns = { @JoinColumn(name = "idChambre") },
             inverseJoinColumns = { @JoinColumn(name = "idCommodite") })
-    private List<Commodite> m_commoditechambre;
+    private List<TupleCommodite> m_commoditechambre;
 
 
-    public Chambre(int idChambre, String nomChambre, String typeLit, double prix) {
+    public TupleChambre(int idChambre, String nomChambre, String typeLit, double prix) {
         m_idChambre = idChambre;
         m_nomChambre = nomChambre;
         m_typelit = typeLit;
         m_prix = prix;
-        m_chambrereservation = new LinkedList<Reservation>();
-        m_commoditechambre = new LinkedList<Commodite>();
+        m_chambrereservation = new LinkedList<TupleReservation>();
+        m_commoditechambre = new LinkedList<TupleCommodite>();
     }
 
-    public Chambre() {
+    public TupleChambre() {
 
     }
 
@@ -61,24 +61,24 @@ public class Chambre {
     public double getPrixTotal()
     {
         double fPrix = 0;
-        for (Commodite c:m_commoditechambre) {
+        for (TupleCommodite c:m_commoditechambre) {
             fPrix += c.getM_prix();
         }
         return fPrix + m_prix;
     }
 
-    public List<Reservation> getM_chambrereservation() {
+    public List<TupleReservation> getM_chambrereservation() {
         return m_chambrereservation;
     }
-    public List<Commodite> getM_commoditechambre() {
+    public List<TupleCommodite> getM_commoditechambre() {
         return m_commoditechambre;
     }
 
-    public void ajoutReservation(Reservation r){m_chambrereservation.add(r);}
-    public void supprimerReservation(Reservation r){m_chambrereservation.remove(r);}
+    public void ajoutReservation(TupleReservation r){m_chambrereservation.add(r);}
+    public void supprimerReservation(TupleReservation r){m_chambrereservation.remove(r);}
 
-    public void ajoutCommodite(Commodite c){m_commoditechambre.add(c);}
-    public void supprimerCommodite(Commodite c){m_commoditechambre.remove(c);}
+    public void ajoutCommodite(TupleCommodite c){m_commoditechambre.add(c);}
+    public void supprimerCommodite(TupleCommodite c){m_commoditechambre.remove(c);}
 
     /**
      *  Pour afficher une chambre
@@ -91,7 +91,7 @@ public class Chambre {
         toPrint.append("Type de lit: " + m_typelit + "\n");
         toPrint.append("Prix de base: " + m_prix + "$\n");
         toPrint.append("Commoditées offertes: \n");
-        for (Commodite c:m_commoditechambre) {
+        for (TupleCommodite c:m_commoditechambre) {
             toPrint.append("------\n");
             toPrint.append("Identifiant de commodité: " + c.getM_idcom() + "\n");
             toPrint.append("Description: " + c.getM_desc() + "\n");

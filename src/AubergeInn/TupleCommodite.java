@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-public class Commodite {
+public class TupleCommodite {
 
     @Id
     @GeneratedValue
@@ -16,16 +16,16 @@ public class Commodite {
     private double m_prix;
 
     @ManyToMany(mappedBy = "m_commoditechambre", cascade = CascadeType.ALL)
-    private List<Chambre> m_chambre;
+    private List<TupleChambre> m_chambre;
 
-    public Commodite(int idCom, String description, double prix) {
+    public TupleCommodite(int idCom, String description, double prix) {
         m_idCom = idCom;
         m_desc = description;
         m_prix = prix;
-        m_chambre = new LinkedList<Chambre>();
+        m_chambre = new LinkedList<TupleChambre>();
     }
 
-    public Commodite() {
+    public TupleCommodite() {
 
     }
 
@@ -45,7 +45,7 @@ public class Commodite {
         return m_prix;
     }
 
-    public List<Chambre> getM_chambre() {
+    public List<TupleChambre> getM_chambre() {
         return m_chambre;
     }
 }

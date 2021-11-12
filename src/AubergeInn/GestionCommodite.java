@@ -3,11 +3,11 @@ package AubergeInn;
 public class GestionCommodite {
 
     private Connexion cx;
-    private Commodites commodites;
+    private TableCommodites tableCommodites;
 
-    public GestionCommodite(Commodites commodites) {
-        this.cx = commodites.getConnexion();
-        this.commodites = commodites;
+    public GestionCommodite(TableCommodites tableCommodites) {
+        this.cx = tableCommodites.getConnexion();
+        this.tableCommodites = tableCommodites;
     }
 
     public void ajouter(int idCom, String description, double prix)
@@ -16,14 +16,14 @@ public class GestionCommodite {
         try {
             cx.demarreTransaction();
 
-            Commodite com = new Commodite(idCom, description, prix);
+            TupleCommodite com = new TupleCommodite(idCom, description, prix);
 
-            if (commodites.existe(idCom))
+            if (tableCommodites.existe(idCom))
             {
                 throw new IFT287Exception("Commodite déjà existante: " + idCom);
             }
 
-            commodites.ajouter(com);
+            tableCommodites.ajouter(com);
             cx.commit();
         }
         catch (Exception e) {

@@ -3,10 +3,10 @@ package AubergeInn;
 public class GestionAuberge {
 
     private Connexion cx;
-    private Chambres chambres;
-    private Clients clients;
-    private Commodites commodites;
-    private Reservations reservations;
+    private TableChambres tableChambres;
+    private TableClients tableClients;
+    private TableCommodites tableCommodites;
+    private TableReservations tableReservations;
 
     private GestionChambre gestionChambres;
     private GestionClient gestionClients;
@@ -20,16 +20,16 @@ public class GestionAuberge {
     {
         // allocation des objets pour le traitement des transactions
         cx = new Connexion(serveur, bd, user, password);
-        chambres = new Chambres(cx);
-        clients = new Clients(cx);
-        reservations = new Reservations(cx);
-        commodites = new Commodites(cx);
+        tableChambres = new TableChambres(cx);
+        tableClients = new TableClients(cx);
+        tableReservations = new TableReservations(cx);
+        tableCommodites = new TableCommodites(cx);
 
-        setGestionChambres(new GestionChambre(chambres, reservations));
-        setGestionClients(new GestionClient(clients, reservations));
-        setGestionCommodites(new GestionCommodite(commodites));
-        setGestionReservations(new GestionReservation(reservations, clients, chambres));
-        setGestionComChambre(new GestionComChambre(commodites, chambres));
+        setGestionChambres(new GestionChambre(tableChambres, tableReservations));
+        setGestionClients(new GestionClient(tableClients, tableReservations));
+        setGestionCommodites(new GestionCommodite(tableCommodites));
+        setGestionReservations(new GestionReservation(tableReservations, tableClients, tableChambres));
+        setGestionComChambre(new GestionComChambre(tableCommodites, tableChambres));
     }
 
     public void fermer()

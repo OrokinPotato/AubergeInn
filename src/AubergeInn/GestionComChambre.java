@@ -3,15 +3,15 @@ package AubergeInn;
 public class GestionComChambre {
 
     private Connexion cx;
-    private Chambres chambres;
-    private Commodites commodites;
+    private TableChambres tableChambres;
+    private TableCommodites tableCommodites;
 
-    public GestionComChambre(Commodites commodites, Chambres chambres) throws IFT287Exception {
-        this.cx = commodites.getConnexion();
-        if (chambres.getConnexion() != commodites.getConnexion())
+    public GestionComChambre(TableCommodites tableCommodites, TableChambres tableChambres) throws IFT287Exception {
+        this.cx = tableCommodites.getConnexion();
+        if (tableChambres.getConnexion() != tableCommodites.getConnexion())
             throw new IFT287Exception("Les collections d'objets n'utilisent pas la même connexion au serveur");
-        this.chambres = chambres;
-        this.commodites = commodites;
+        this.tableChambres = tableChambres;
+        this.tableCommodites = tableCommodites;
     }
 
     /**
@@ -23,16 +23,16 @@ public class GestionComChambre {
         try {
             cx.demarreTransaction();
 
-            if (!chambres.existe(idChambre))
+            if (!tableChambres.existe(idChambre))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
-            if (!commodites.existe(idCom))
+            if (!tableCommodites.existe(idCom))
             {
                 throw new IFT287Exception("Commodite inexistante: " + idCom);
             }
-            Chambre ch = chambres.getChambre(idChambre);
-            Commodite co = commodites.getCommodite(idCom);
+            TupleChambre ch = tableChambres.getChambre(idChambre);
+            TupleCommodite co = tableCommodites.getCommodite(idCom);
             if (ch.getM_commoditechambre().contains(co))
             {
                 throw new IFT287Exception("Commodite déjà inclue: " + idCom);
@@ -55,16 +55,16 @@ public class GestionComChambre {
         try {
             cx.demarreTransaction();
 
-            if (!chambres.existe(idChambre))
+            if (!tableChambres.existe(idChambre))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
-            if (!commodites.existe(idCom))
+            if (!tableCommodites.existe(idCom))
             {
                 throw new IFT287Exception("Commodite inexistante: " + idCom);
             }
-            Chambre ch = chambres.getChambre(idChambre);
-            Commodite co = commodites.getCommodite(idCom);
+            TupleChambre ch = tableChambres.getChambre(idChambre);
+            TupleCommodite co = tableCommodites.getCommodite(idCom);
             if (!ch.getM_commoditechambre().contains(co))
             {
                 throw new IFT287Exception("Commodite non inclue dans la chambre: " + idCom);

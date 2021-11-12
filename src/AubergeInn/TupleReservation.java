@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Reservation {
+public class TupleReservation {
 
 
     @Id
@@ -13,17 +13,17 @@ public class Reservation {
 
     //private int m_idClient;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Client m_client;
+    private TupleClient m_client;
 
     //private int m_idChambre;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Chambre m_chambre;
+    private TupleChambre m_chambre;
 
     private Date m_datedebut;
     private Date m_dateFin;
 
 
-    public Reservation(Client cl, Chambre ch, Date dateDebut, Date dateFin) {
+    public TupleReservation(TupleClient cl, TupleChambre ch, Date dateDebut, Date dateFin) {
         m_datedebut = dateDebut;
         m_dateFin = dateFin;
 
@@ -31,7 +31,7 @@ public class Reservation {
         m_chambre = ch;
     }
 
-    public Reservation() {
+    public TupleReservation() {
 
     }
 
@@ -39,11 +39,11 @@ public class Reservation {
         return m_id;
     }
 
-    public Client getM_client() {
+    public TupleClient getM_client() {
         return m_client;
     }
 
-    public Chambre getM_chambre() {
+    public TupleChambre getM_chambre() {
         return m_chambre;
     }
 

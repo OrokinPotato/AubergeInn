@@ -5,17 +5,17 @@ import java.util.List;
 public class GestionChambre {
 
     private Connexion cx;
-    private Chambres chambres;
-    private Reservations reservations;
+    private TableChambres tableChambres;
+    private TableReservations tableReservations;
 
-    public GestionChambre(Chambres chambres, Reservations reservations)
+    public GestionChambre(TableChambres tableChambres, TableReservations tableReservations)
             throws IFT287Exception
     {
-        this.cx = chambres.getConnexion();
-        if (chambres.getConnexion() != reservations.getConnexion())
+        this.cx = tableChambres.getConnexion();
+        if (tableChambres.getConnexion() != tableReservations.getConnexion())
             throw new IFT287Exception("Les collections d'objets n'utilisent pas la même connexion au serveur");
-        this.chambres = chambres;
-        this.reservations = reservations;
+        this.tableChambres = tableChambres;
+        this.tableReservations = tableReservations;
     }
 
     /**
@@ -27,13 +27,13 @@ public class GestionChambre {
         try
         {
             cx.demarreTransaction();
-            Chambre c = new Chambre(idChambre, nomChambre, typeLit, prix);
+            TupleChambre c = new TupleChambre(idChambre, nomChambre, typeLit, prix);
 
-            if (chambres.existe(idChambre))
+            if (tableChambres.existe(idChambre))
             {
                 throw new IFT287Exception("Chambre déjà existante: " + idChambre);
             }
-            chambres.ajouter(c);
+            tableChambres.ajouter(c);
             cx.commit();
         }
         catch (Exception e)
@@ -52,15 +52,15 @@ public class GestionChambre {
         {
             cx.demarreTransaction();
 
-            Chambre c = chambres.getChambre(idChambre);
+            TupleChambre c = tableChambres.getChambre(idChambre);
             if (c == null)
             {
     // TODO: else pour ne pas fermer l'app si la chamvre existe pas
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
 
-            List<Commodite> lCom = c.getM_commoditechambre();
-            if (reservations.getReservationChambre(c) != null)
+            List<TupleCommodite> lCom = c.getM_commoditechambre();
+            if (tableReservations.getReservationChambre(c) != null)
             {
                 throw new IFT287Exception("Chambre encore réservée: " + idChambre);
             }
@@ -69,7 +69,7 @@ public class GestionChambre {
                 throw new IFT287Exception("Commodites encore assignées à cette chambre: " + idChambre);
             }
 
-            if (!chambres.supprimer(c))
+            if (!tableChambres.supprimer(c))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
@@ -87,12 +87,12 @@ public class GestionChambre {
         try {
             cx.demarreTransaction();
 
-            if (!chambres.existe(idChambre))
+            if (!tableChambres.existe(idChambre))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
 
-            Chambre c = chambres.getChambre(idChambre);
+            TupleChambre c = tableChambres.getChambre(idChambre);
             System.out.println(c.print());
 
             cx.commit();
@@ -107,9 +107,9 @@ public class GestionChambre {
     public void afficherChambresLibres() {
         try {
             cx.demarreTransaction();
-            List<Chambre> lChambre = chambres.getAllChambre();
+            List<TupleChambre> lTupleChambre = tableChambres.getAllChambre();
 
-            for (Chambre c:lChambre)
+            for (TupleChambre c: lTupleChambre)
             {
                 if (c.getM_chambrereservation().isEmpty())
                 {
