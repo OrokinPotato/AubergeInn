@@ -28,13 +28,12 @@ public class GestionClient {
 
             if (tableClients.existe(idClient))
             {
-                System.out.println("Client déjà existant: " + idClient);
+                throw new IFT287Exception("Client déjà existant: " + idClient);
             }
-            else
-            {
+
                 tableClients.ajouter(c);
                 cx.commit();
-            }
+
         }
         catch (Exception e)
         {
