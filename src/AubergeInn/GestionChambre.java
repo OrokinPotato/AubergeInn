@@ -55,7 +55,6 @@ public class GestionChambre {
             TupleChambre c = tableChambres.getChambre(idChambre);
             if (c == null)
             {
-    // TODO: else pour ne pas fermer l'app si la chamvre existe pas
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
 
