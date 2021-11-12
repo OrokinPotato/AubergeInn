@@ -24,7 +24,7 @@ public class Reservations {
 
     public Reservation getReservationClient(Client c) {
         stmtExisteClient.setParameter("client", c);
-        List<Reservation> lRes = stmtExiste.getResultList();
+        List<Reservation> lRes = stmtExisteClient.getResultList();
         if (!lRes.isEmpty())
         {
             return lRes.get(0);
@@ -34,7 +34,7 @@ public class Reservations {
 
     public Reservation getReservationChambre(Chambre c) {
         stmtExisteChambre.setParameter("chambre", c);
-        List<Reservation> lRes = stmtExiste.getResultList();
+        List<Reservation> lRes = stmtExisteChambre.getResultList();
         if (!lRes.isEmpty())
         {
             return lRes.get(0);

@@ -53,12 +53,13 @@ public class GestionChambre {
             cx.demarreTransaction();
 
             Chambre c = chambres.getChambre(idChambre);
-            List<Commodite> lCom = c.getM_commoditechambre();
-
             if (c == null)
             {
+    // TODO: else pour ne pas fermer l'app si la chamvre existe pas
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
+
+            List<Commodite> lCom = c.getM_commoditechambre();
             if (reservations.getReservationChambre(c) != null)
             {
                 throw new IFT287Exception("Chambre encore réservée: " + idChambre);
@@ -86,7 +87,7 @@ public class GestionChambre {
         try {
             cx.demarreTransaction();
 
-            if (chambres.existe(idChambre))
+            if (!chambres.existe(idChambre))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }

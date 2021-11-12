@@ -47,4 +47,36 @@ public class GestionComChambre {
             throw e;
         }
     }
+
+
+    public void enlever(int idChambre, int idCom)
+            throws IFT287Exception, Exception
+    {
+        try {
+            cx.demarreTransaction();
+
+            if (!chambres.existe(idChambre))
+            {
+                throw new IFT287Exception("Chambre inexistante: " + idChambre);
+            }
+            if (!commodites.existe(idCom))
+            {
+                throw new IFT287Exception("Commodite inexistante: " + idCom);
+            }
+            Chambre ch = chambres.getChambre(idChambre);
+            Commodite co = commodites.getCommodite(idCom);
+            if (!ch.getM_commoditechambre().contains(co))
+            {
+                throw new IFT287Exception("Commodite non inclue dans la chambre: " + idCom);
+            }
+
+            ch.supprimerCommodite(co);
+            cx.commit();
+        }
+        catch (Exception e)
+        {
+            cx.rollback();
+            throw e;
+        }
+    }
 }

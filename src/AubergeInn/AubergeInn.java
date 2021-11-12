@@ -201,6 +201,15 @@ public class AubergeInn
             gestionAub.getGestionComChambre().inclure(idChambre, idCom);
         }
         // *******************
+        // enleverCommodite
+        // *******************
+        else if (command.equals("enleverCommodite"))
+        {
+            int idChambre = readInt(tokenizer);
+            int idCom = readInt(tokenizer);
+            gestionAub.getGestionComChambre().enlever(idChambre, idCom);
+        }
+        // *******************
         // reserver
         // *******************
         else if (command.equals("reserver"))
@@ -269,9 +278,9 @@ public class AubergeInn
         System.out.println("  inclureCommodite <idChambre> <idCommodite>");
         System.out.println("  enleverCommodite <idChambre> <idCommodite>");
         System.out.println("  afficherChambresLibres");
-        System.out.println("  afficherClient <idClient>\n");
-        System.out.println("  afficherChambre <idChambre>\n");
-        System.out.println("  reserver <idClient> <idChambre> <dateDebut> <dateFin>\n");
+        System.out.println("  afficherClient <idClient>");
+        System.out.println("  afficherChambre <idChambre>");
+        System.out.println("  reserver <idClient> <idChambre> <dateDebut> <dateFin>");
     }
 
     /**
@@ -370,7 +379,7 @@ public class AubergeInn
             String token = tokenizer.nextToken();
             try
             {
-                Date d = Bibliotheque.FormatDate.convertirDate(token);
+                Date d = FormatDate.convertirDate(token);
                 return d;
             }
             catch (ParseException e)

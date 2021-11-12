@@ -93,7 +93,7 @@ public class Chambre {
         toPrint.append("Commoditées offertes: \n");
         for (Commodite c:m_commoditechambre) {
             toPrint.append("------\n");
-            toPrint.append("Identifiant do commodité: " + c.getM_idcom() + "\n");
+            toPrint.append("Identifiant de commodité: " + c.getM_idcom() + "\n");
             toPrint.append("Description: " + c.getM_desc() + "\n");
             toPrint.append("Prix: " + c.getM_prix() + "$\n");
             toPrint.append("------\n");
