@@ -84,6 +84,7 @@ public class AubergeInn
                 aubergeInstance.fermer();
         }
     }
+
     public AubergeInn(String server, String bd, String user, String pass) throws Exception
     {
         gestionAub = new GestionAuberge(server, bd, user, pass);
