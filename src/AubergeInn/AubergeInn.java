@@ -42,7 +42,7 @@ import java.util.StringTokenizer;
 public class AubergeInn
 {
     private GestionAuberge gestionAub;
-    private boolean estFichier;
+    private boolean echo;
 
     /**
      * @param args
@@ -92,7 +92,7 @@ public class AubergeInn
 
     public void setFaireEcho(boolean echo)
     {
-        this.estFichier = echo;
+        this.echo = echo;
     }
 
     public void fermer() throws Exception
@@ -125,7 +125,7 @@ public class AubergeInn
         System.out.print("> ");
         String transaction = reader.readLine();
         // Echo si lecture dans un fichier
-        if (estFichier)
+        if (echo)
             System.out.println(transaction);
         return transaction;
     }
@@ -301,14 +301,7 @@ public class AubergeInn
 
         // commande "exit"
         String commande = tokenizer.nextToken();
-        if (commande.equals("exit"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return commande.equals("exit");
     }
 
     /** lecture d'une chaine de caractères de la transaction entrée à l'écran */

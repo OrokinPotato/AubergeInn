@@ -1,6 +1,7 @@
 package AubergeInn;
 
-import javax.persistence.*;
+import com.mongodb.*;
+import com.mongodb.client.MongoDatabase;
 import java.util.*;
 
 /**
@@ -24,8 +25,8 @@ import java.util.*;
  */
 public class Connexion
 {
-    private EntityManager em;
-    private EntityManagerFactory emf;
+    private MongoClient client;
+    private MongoDatabase database;
 
     /**
      * Ouverture d'une connexion
@@ -39,24 +40,22 @@ public class Connexion
     {
         if (serveur.equals("local"))
         {
-            emf = Persistence.createEntityManagerFactory(bd);
+            client = new MongoClient();
         }
         else if (serveur.equals("dinf"))
         {
-            Map<String, String> properties = new HashMap<String, String>();
-            properties.put("javax.persistence.jdbc.user", user);
-            properties.put("javax.persistence.jdbc.password", pass);
-            emf = Persistence.createEntityManagerFactory("objectdb.odb" , properties);
+            MongoClientURI uri = new MongoClientURI("mongodb://"+user+":"+pass+"@bd-info2.dinf.usherbrooke.ca:27017/"+bd+"?ssl=false");
+            client = new MongoClient(uri);
         }
         else
         {
             throw new IFT287Exception("Serveur inconnu");
         }
 
-        em = emf.createEntityManager();
+        database = client.getDatabase(bd);
 
         System.out.println("Ouverture de la connexion :\n"
-                + "Connecté sur la BD ObjectDB "
+                + "Connecté sur la BD MongoDB "
                 + bd + " avec l'utilisateur " + user);
     }
 
@@ -65,37 +64,24 @@ public class Connexion
      */
     public void fermer()
     {
-        em.close();
-        emf.close();
+        client.close();
         System.out.println("Connexion fermée");
     }
 
-    public void demarreTransaction()
+    /**
+     * retourne la Connection MongoDB
+     */
+    public MongoClient getConnection()
     {
-        em.getTransaction().begin();
+
+        return client;
     }
 
     /**
-     * commit
+     * retourne la DataBase MongoDB
      */
-    public void commit()
+    public MongoDatabase getDatabase()
     {
-        em.getTransaction().commit();
-    }
-
-    /**
-     * rollback
-     */
-    public void rollback()
-    {
-        em.getTransaction().rollback();
-    }
-
-    /**
-     * retourne la Connection ObjectDB
-     */
-    public EntityManager getConnection()
-    {
-        return em;
+        return database;
     }
 }// Classe Connexion

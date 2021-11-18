@@ -14,7 +14,18 @@ public class GestionAuberge {
     private GestionCommodite gestionCommodites;
     private GestionComChambre gestionComChambre;
 
-    
+    /**
+     * Ouvre une connexion avec la BD NoSQL et alloue les gestionnaires
+     * de transactions et de tables.
+     *
+     * <pre>
+     *
+     * @param serveur NoSQL (local ou dinf)
+     * @param bd nom de la base de données
+     * @param user user id pour établir une connexion avec le serveur NoSQL
+     * @param password mot de passe pour le user id
+     * </pre>
+     */
     public GestionAuberge(String serveur, String bd, String user, String password)
         throws IFT287Exception
     {
