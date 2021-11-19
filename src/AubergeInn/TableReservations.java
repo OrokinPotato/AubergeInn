@@ -1,21 +1,25 @@
 package AubergeInn;
 
-import javax.persistence.TypedQuery;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Sorts.ascending;
 import java.util.List;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
 
 public class TableReservations {
 
     private Connexion cx;
-    private TypedQuery<TupleReservation> stmtExiste;
-    private TypedQuery<TupleReservation> stmtExisteClient;
-    private TypedQuery<TupleReservation> stmtExisteChambre;
+    private MongoCollection<Document> reservationsCollection;
 
 
     public TableReservations(Connexion cx) {
         this.cx = cx;
-        stmtExiste = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client and r.m_chambre = :chambre", TupleReservation.class);
-        stmtExisteClient = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client", TupleReservation.class);
-        stmtExisteChambre = cx.getConnection().createQuery("select r from TupleReservation r where r.m_chambre = :chambre", TupleReservation.class);
+        reservationsCollection = cx.getDatabase().getCollection("Reservations");
+     //   stmtExiste = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client and r.m_chambre = :chambre", TupleReservation.class);
+      //  stmtExisteClient = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client", TupleReservation.class);
+      //  stmtExisteChambre = cx.getConnection().createQuery("select r from TupleReservation r where r.m_chambre = :chambre", TupleReservation.class);
     }
 
     public Connexion getConnexion() {
@@ -23,11 +27,10 @@ public class TableReservations {
     }
 
     public TupleReservation getReservationClient(TupleClient c) {
-        stmtExisteClient.setParameter("client", c);
-        List<TupleReservation> lRes = stmtExisteClient.getResultList();
-        if (!lRes.isEmpty())
+        Document d = reservationsCollection.find(eq("idClient", c.getM_idClient())).first();
+        if (d != null)
         {
-            return lRes.get(0);
+            return new TupleReservation(d);
         }
         return null;
     }
@@ -42,10 +45,8 @@ public class TableReservations {
         return null;
     }
 
-    public boolean existe(TupleClient tupleClient, TupleChambre tupleChambre) {
-        stmtExiste.setParameter("client", tupleClient);
-        stmtExiste.setParameter("chambre", tupleChambre);
-        return !stmtExiste.getResultList().isEmpty();
+    public boolean existe(int idReservation) {
+        return reservationsCollection.find(eq("idReservation", idReservation)).first() != null;
     }
 
     public void reserver(TupleReservation r) {

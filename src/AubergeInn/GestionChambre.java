@@ -28,10 +28,9 @@ public class GestionChambre {
             {
                 //Vérifie si la chambre existe déjà
                 throw new IFT287Exception("Chambre déjà existante: " + idChambre);
-
-                //Ajout de la chambre dans la table des chambres
-                tableChambres.ajouter(idChambre, nomChambre, typeLit, prix);
             }
+            //Ajout de la chambre dans la table des chambres
+            tableChambres.ajouter(idChambre, nomChambre, typeLit, prix);
         }
         catch (Exception e)
         {

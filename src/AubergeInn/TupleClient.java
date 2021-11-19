@@ -1,15 +1,11 @@
 package AubergeInn;
 
-import javax.persistence.*;
+import org.bson.Document;
 import java.util.LinkedList;
 import java.util.List;
 
-@Entity
-public class TupleClient {
 
-    @Id
-    @GeneratedValue
-    private long m_id;
+public class TupleClient {
 
     private int m_idClient;
     private String m_prenom;
@@ -22,16 +18,21 @@ public class TupleClient {
 
     public TupleClient(){}
 
+    public TupleClient(Document d)
+    {
+        m_idClient = d.getInteger("idClient");
+        m_prenom = d.getString("prenom");
+        m_nom = d.getString("nom");
+        m_age = d.getInteger("age");
+        m_clientreservation = d.getInteger("clientreservation");
+    }
+
     public TupleClient(int idClient, String prenom, String nom, int age) {
         m_idClient = idClient;
         m_prenom = prenom;
         m_nom = nom;
         m_age = age;
         m_clientreservation = new LinkedList<TupleReservation>();
-    }
-
-    public long getM_id() {
-        return m_id;
     }
 
     public int getM_idClient() {

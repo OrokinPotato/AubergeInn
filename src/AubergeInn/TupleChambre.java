@@ -1,30 +1,38 @@
 package AubergeInn;
 
-import javax.persistence.*;
+import org.bson.Document;
+
 import java.util.LinkedList;
 import java.util.List;
 
-@Entity
-public class TupleChambre {
 
-    @Id
-    @GeneratedValue
-    private long m_id;
+public class TupleChambre {
 
     private int m_idChambre;
     private String m_nomChambre;
     private String m_typelit;
     private double m_prix;
 
-    @OneToMany(mappedBy = "m_chambre")
-    @OrderBy("m_datedebut")
     private List<TupleReservation> m_chambrereservation;
 
-    @ManyToMany(targetEntity = TupleCommodite.class, cascade = {CascadeType.ALL})
-    @JoinTable(name = "comChambre", joinColumns = { @JoinColumn(name = "idChambre") },
-            inverseJoinColumns = { @JoinColumn(name = "idCommodite") })
+  //  @ManyToMany(targetEntity = TupleCommodite.class, cascade = {CascadeType.ALL})
+  //  @JoinTable(name = "comChambre", joinColumns = { @JoinColumn(name = "idChambre") },
+   //         inverseJoinColumns = { @JoinColumn(name = "idCommodite") })
     private List<TupleCommodite> m_commoditechambre;
 
+    public TupleChambre() {
+    }
+
+
+    public TupleChambre(Document d)
+    {
+        m_idChambre = d.getInteger("idChambre");
+        m_nomChambre = d.getString("nomChambre");
+        m_typelit = d.getString("typeLit");
+        m_prix = d.getDouble("prix");
+        m_chambrereservation = d.getString("idMembre");
+        m_commoditechambre = d.getString("idMembreNull");
+    }
 
     public TupleChambre(int idChambre, String nomChambre, String typeLit, double prix) {
         m_idChambre = idChambre;
@@ -35,13 +43,6 @@ public class TupleChambre {
         m_commoditechambre = new LinkedList<TupleCommodite>();
     }
 
-    public TupleChambre() {
-
-    }
-
-    public long getM_id() {
-        return m_id;
-    }
 
     public int getM_idChambre() {
         return m_idChambre;
@@ -58,6 +59,7 @@ public class TupleChambre {
     public double getM_prix() {
         return m_prix;
     }
+
     public double getPrixTotal()
     {
         double fPrix = 0;
@@ -93,11 +95,19 @@ public class TupleChambre {
         toPrint.append("Commoditées offertes: \n");
         for (TupleCommodite c:m_commoditechambre) {
             toPrint.append("------\n");
-            toPrint.append("Identifiant de commodité: " + c.getM_idcom() + "\n");
+            toPrint.append("Identifiant de commodité: " + c.getM_idCom() + "\n");
             toPrint.append("Description: " + c.getM_desc() + "\n");
             toPrint.append("Prix: " + c.getM_prix() + "$\n");
             toPrint.append("------\n");
         }
         return toPrint.toString();
+    }
+
+    public Document toDocument()
+    {
+        return new Document().append("idChambre", m_idChambre)
+                .append("nomChambre", m_nomChambre)
+                .append("typeLit", m_typelit)
+                .append("prix", m_prix);
     }
 }

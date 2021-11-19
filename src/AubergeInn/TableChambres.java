@@ -1,18 +1,24 @@
 package AubergeInn;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
+
+import com.mongodb.client.FindIterable;
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Updates.*;
 
 public class TableChambres {
 
-    private TypedQuery<TupleChambre> stmtExiste;
-    private TypedQuery<TupleChambre> stmtSelectAll;
     private Connexion cx;
+    private MongoCollection<Document> chambresCollection;
 
     public TableChambres(Connexion cx) {
         this.cx = cx;
-        stmtExiste = cx.getConnection().createQuery("select c from TupleChambre c where c.m_idChambre = :idChambre", TupleChambre.class);
-        stmtSelectAll = cx.getConnection().createQuery("select c from TupleChambre c", TupleChambre.class);
+        chambresCollection = cx.getDatabase().getCollection("Chambres");
     }
 
     public Connexion getConnexion() {
@@ -20,23 +26,19 @@ public class TableChambres {
     }
 
     public TupleChambre getChambre(int idChambre) {
-        stmtExiste.setParameter("idChambre", idChambre);
-        List<TupleChambre> lTupleChambre = stmtExiste.getResultList();
-        if (!lTupleChambre.isEmpty())
-        {
-            return lTupleChambre.get(0);
+        Document l = chambresCollection.find(eq("idChambre", idChambre)).first();
+        if(l != null){
+            return new TupleChambre(l);
         }
-        else
-        {
             return null;
-        }
     }
 
-    public List<TupleChambre> getAllChambre(){
-        List<TupleChambre> lTupleChambre = stmtSelectAll.getResultList();
-        if (!lTupleChambre.isEmpty())
+    // TODO: https://docs.mongodb.com/realm/mongodb/actions/collection.find/
+    public FindIterable<Document> getAllChambre(){
+        FindIterable<Document> chambres = chambresCollection.find(gt("idChambre", 0));
+        if (chambres.first() != null)
         {
-            return lTupleChambre;
+            return chambres;
         }
         else
         {
@@ -45,21 +47,17 @@ public class TableChambres {
     }
 
     public boolean existe(int idChambre) {
-        stmtExiste.setParameter("idChambre", idChambre);
-        return !stmtExiste.getResultList().isEmpty();
+
+        return chambresCollection.find(eq("idChambre", idChambre)).first() != null;
     }
 
-    public TupleChambre ajouter(TupleChambre c) {
-        cx.getConnection().persist(c);
-        return c;
+    public void ajouter(int idChambre, String nomChambre, String typeLit, double prix) {
+        TupleChambre chambre = new TupleChambre(idChambre, nomChambre, typeLit, prix);
+
+        chambresCollection.insertOne(chambre.toDocument());
     }
 
-    public boolean supprimer(TupleChambre c) {
-        if (c != null)
-        {
-            cx.getConnection().remove(c);
-            return true;
-        }
-        return false;
+    public boolean supprimer(int idChambre) {
+        return chambresCollection.deleteOne(eq("idChambre", idChambre)).getDeletedCount() > 0;
     }
 }

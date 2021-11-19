@@ -37,17 +37,17 @@ public class GestionReservation {
                 throw new IFT287Exception("La date de début est après la date de fin: " + dateDebut + ">" + dateFin);
             }
 
-            TupleClient clients = tableClients.getClient(idClient);
+            TupleClient client = tableClients.getClient(idClient);
             TupleChambre chambre = tableChambres.getChambre(idChambre);
-            if (tableReservations.existe(clients, chambre))
+            if (tableReservations.existe(client, chambre))
             {
                 throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre);
             }
 
-            TupleReservation reservation = new TupleReservation(clients, chambre, dateDebut, dateFin);
+            TupleReservation reservation = new TupleReservation(client.getM_idClient(), chambre.getM_idChambre(), dateDebut, dateFin);
 
             tableReservations.reserver(reservation);
-            clients.ajoutReservation(reservation);
+            client.ajoutReservation(reservation);
             chambre.ajoutReservation(reservation);
             chambre.ajoutReservation(reservation);
         }

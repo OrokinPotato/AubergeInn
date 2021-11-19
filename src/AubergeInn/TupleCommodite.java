@@ -1,15 +1,12 @@
 package AubergeInn;
 
-import javax.persistence.*;
+import org.bson.Document;
 import java.util.LinkedList;
 import java.util.List;
 
-@Entity
+
 public class TupleCommodite {
 
-    @Id
-    @GeneratedValue
-    private long m_id;
 
     private int m_idCom;
     private String m_desc;
@@ -17,6 +14,14 @@ public class TupleCommodite {
 
     @ManyToMany(mappedBy = "m_commoditechambre", cascade = CascadeType.ALL)
     private List<TupleChambre> m_chambre;
+
+    public TupleCommodite(Document d)
+    {
+        m_idCom = d.getInteger("idReservation");
+        m_desc = d.getString("description");
+        m_prix = d.getDouble("prix");
+        m_chambre = d.get("chambre");
+    }
 
     public TupleCommodite(int idCom, String description, double prix) {
         m_idCom = idCom;
@@ -29,11 +34,7 @@ public class TupleCommodite {
 
     }
 
-    public long getM_id() {
-        return m_id;
-    }
-
-    public int getM_idcom() {
+    public int getM_idCom() {
         return m_idCom;
     }
 
