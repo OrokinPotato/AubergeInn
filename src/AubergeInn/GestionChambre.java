@@ -76,13 +76,12 @@ public class GestionChambre {
     public void afficherChambre(int idChambre) throws IFT287Exception
     {
         try {
-
             if (!tableChambres.existe(idChambre))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
-            TupleChambre c = tableChambres.getChambre(idChambre);
-            System.out.println(c.print());
+            TupleChambre chambre = tableChambres.getChambre(idChambre);
+            System.out.println(chambre.print());
         }
         catch (Exception e)
         {

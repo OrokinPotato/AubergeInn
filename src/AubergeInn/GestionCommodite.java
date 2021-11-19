@@ -2,7 +2,6 @@ package AubergeInn;
 
 public class GestionCommodite {
 
-    private Connexion cx;
     private TableCommodites tableCommodites;
 
     public GestionCommodite(TableCommodites tableCommodites) {
@@ -14,20 +13,16 @@ public class GestionCommodite {
             throws IFT287Exception, Exception
     {
         try {
-            cx.demarreTransaction();
-
-            TupleCommodite com = new TupleCommodite(idCom, description, prix);
 
             if (tableCommodites.existe(idCom))
             {
                 throw new IFT287Exception("Commodite déjà existante: " + idCom);
             }
 
-            tableCommodites.ajouter(com);
-            cx.commit();
+            tableCommodites.ajouter(idCom, description, prix);
         }
-        catch (Exception e) {
-            cx.rollback();
+        catch (Exception e)
+        {
             throw e;
         }
 

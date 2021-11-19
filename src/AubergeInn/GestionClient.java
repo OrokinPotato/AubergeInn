@@ -2,13 +2,11 @@ package AubergeInn;
 
 public class GestionClient {
 
-    private Connexion cx;
     private TableClients tableClients;
     private TableReservations tableReservations;
 
     public GestionClient(TableClients tableClients, TableReservations tableReservations) throws IFT287Exception
     {
-        this.cx = tableClients.getConnexion();
         if (tableClients.getConnexion() != tableReservations.getConnexion())
             throw new IFT287Exception("Les collections d'objets n'utilisent pas la même connexion au serveur");
         this.tableClients = tableClients;
@@ -23,21 +21,16 @@ public class GestionClient {
     {
         try
         {
-            cx.demarreTransaction();
-            TupleClient c = new TupleClient(idClient, prenom, nom, age);
-
             if (tableClients.existe(idClient))
             {
                 throw new IFT287Exception("Client déjà existant: " + idClient);
             }
 
-                tableClients.ajouter(c);
-                cx.commit();
+                tableClients.ajouter(idClient, prenom, nom, age);
 
         }
         catch (Exception e)
         {
-            cx.rollback();
             throw e;
         }
 
@@ -50,27 +43,23 @@ public class GestionClient {
     {
         try
         {
-            cx.demarreTransaction();
-
-            TupleClient c = tableClients.getClient(idClient);
-            if (c == null)
+            TupleClient client = tableClients.getClient(idClient);
+            if (client == null)
             {
                 throw new IFT287Exception("Client inexistant: " + idClient);
             }
-            if (tableReservations.getReservationClient(c) != null)
+            if (tableReservations.getReservationClient(client) != null)
             {
                 throw new IFT287Exception("Client ayant encore des réservations: " + idClient);
             }
 
-            if (!tableClients.supprimer(c))
+            if (!tableClients.supprimer(client))
             {
                 throw new IFT287Exception("Client inexistant: " + idClient);
             }
-            cx.commit();
         }
         catch (Exception e)
         {
-            cx.rollback();
             throw e;
         }
     }
@@ -80,21 +69,16 @@ public class GestionClient {
      */
     public void afficherClient(int idClient) throws IFT287Exception {
         try {
-            cx.demarreTransaction();
-
             if (!tableClients.existe(idClient))
             {
                 throw new IFT287Exception("Client inexistant: " + idClient);
             }
 
-            TupleClient c = tableClients.getClient(idClient);
-            System.out.println(c.print());
-
-            cx.commit();
+            TupleClient client = tableClients.getClient(idClient);
+            System.out.println(client.print());
         }
         catch (Exception e)
         {
-            cx.rollback();
             throw e;
         }
     }

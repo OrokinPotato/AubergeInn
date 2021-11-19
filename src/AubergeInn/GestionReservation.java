@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class GestionReservation {
 
-    private Connexion cx;
     private TableReservations tableReservations;
     private TableClients tableClients;
     private TableChambres tableChambres;
@@ -12,7 +11,6 @@ public class GestionReservation {
     public GestionReservation(TableReservations tableReservations, TableClients tableClients, TableChambres tableChambres)
             throws IFT287Exception
     {
-        this.cx = tableReservations.getConnexion();
         if (tableChambres.getConnexion() != tableReservations.getConnexion() || tableClients.getConnexion() != tableReservations.getConnexion())
             throw new IFT287Exception("Les collections d'objets n'utilisent pas la même connexion au serveur");
         this.tableReservations = tableReservations;
@@ -24,7 +22,6 @@ public class GestionReservation {
         throws Exception
     {
         try {
-            cx.demarreTransaction();
 
             if (!tableClients.existe(idClient))
             {
@@ -40,24 +37,22 @@ public class GestionReservation {
                 throw new IFT287Exception("La date de début est après la date de fin: " + dateDebut + ">" + dateFin);
             }
 
-            TupleClient cl = tableClients.getClient(idClient);
-            TupleChambre ch = tableChambres.getChambre(idChambre);
-            if (tableReservations.existe(cl, ch))
+            TupleClient clients = tableClients.getClient(idClient);
+            TupleChambre chambre = tableChambres.getChambre(idChambre);
+            if (tableReservations.existe(clients, chambre))
             {
                 throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre);
             }
 
-            TupleReservation r = new TupleReservation(cl, ch, dateDebut, dateFin);
+            TupleReservation reservation = new TupleReservation(clients, chambre, dateDebut, dateFin);
 
-            tableReservations.reserver(r);
-            cl.ajoutReservation(r);
-            ch.ajoutReservation(r);
-
-            cx.commit();
+            tableReservations.reserver(reservation);
+            clients.ajoutReservation(reservation);
+            chambre.ajoutReservation(reservation);
+            chambre.ajoutReservation(reservation);
         }
         catch (Exception e)
         {
-            cx.rollback();
             throw e;
         }
     }
