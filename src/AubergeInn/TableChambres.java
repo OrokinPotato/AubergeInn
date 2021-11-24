@@ -1,5 +1,6 @@
 package AubergeInn;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.mongodb.client.FindIterable;
@@ -33,17 +34,22 @@ public class TableChambres {
             return null;
     }
 
-    // TODO: https://docs.mongodb.com/realm/mongodb/actions/collection.find/
-    public FindIterable<Document> getAllChambre(){
-        FindIterable<Document> chambres = chambresCollection.find(gt("idChambre", 0));
-        if (chambres.first() != null)
+    public List<TupleChambre> getAllChambre(){
+        List<TupleChambre> liste = new LinkedList<TupleChambre>();
+        MongoCursor<Document> chambres = chambresCollection.find().iterator();
+        try
         {
-            return chambres;
+            while (chambres.hasNext())
+            {
+                liste.add(new TupleChambre(chambres.next()));
+            }
         }
-        else
+        finally
         {
-            return null;
+            chambres.close();
         }
+
+        return liste;
     }
 
     public boolean existe(int idChambre) {

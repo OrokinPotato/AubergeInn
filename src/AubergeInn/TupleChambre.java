@@ -2,6 +2,7 @@ package AubergeInn;
 
 import org.bson.Document;
 
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class TupleChambre {
         m_nomChambre = d.getString("nomChambre");
         m_typelit = d.getString("typeLit");
         m_prix = d.getDouble("prix");
-        m_chambrereservation = d.getString("idMembre");
-        m_commoditechambre = d.getString("idMembreNull");
+        m_chambrereservation = new LinkedList<TupleReservation>();
+        m_commoditechambre = new LinkedList<TupleCommodite>();
     }
 
     public TupleChambre(int idChambre, String nomChambre, String typeLit, double prix) {

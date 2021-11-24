@@ -51,7 +51,7 @@ public class GestionChambre {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
 
-            if (tableReservations.getReservationChambre(chambre) != null)
+            if (tableReservations.getReservationChambre(idChambre) != null)
             {
                 throw new IFT287Exception("Chambre encore réservée: " + idChambre);
             }
@@ -61,7 +61,7 @@ public class GestionChambre {
                 throw new IFT287Exception("Commodite(s) encore assignée(s) à cette chambre: " + idChambre);
             }
 
-            if (!tableChambres.supprimer(chambre))
+            if (!tableChambres.supprimer(idChambre))
             {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
@@ -72,6 +72,7 @@ public class GestionChambre {
         }
     }
 
+    // TODO: déplacer cette méthode dans TableChambres?
     public void afficherChambre(int idChambre) throws IFT287Exception
     {
         try {
@@ -88,6 +89,7 @@ public class GestionChambre {
         }
     }
 
+    // TODO: Faire une méthode listerLibre dans TableChambres
     public void afficherChambresLibres() {
         try {
             List<TupleChambre> lTupleChambre = tableChambres.getAllChambre();
