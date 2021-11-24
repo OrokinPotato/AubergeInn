@@ -1,16 +1,19 @@
 package AubergeInn;
 
-import javax.persistence.TypedQuery;
-import java.util.List;
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+
 
 public class TableClients {
 
     private Connexion cx;
-    private TypedQuery<TupleClient> stmtExiste;
+    private MongoCollection<Document> clientsCollections;
 
     public TableClients(Connexion cx) {
         this.cx = cx;
-        stmtExiste = cx.getConnection().createQuery("select c from TupleClient c where c.m_idClient = :idClient", TupleClient.class);
+        clientsCollections = cx.getDatabase().getCollection("TableClients");
     }
 
     public Connexion getConnexion() {
@@ -18,43 +21,32 @@ public class TableClients {
     }
 
     public boolean existe(int idClient) {
-        stmtExiste.setParameter("idClient", idClient);
-        return !stmtExiste.getResultList().isEmpty();
+        return clientsCollections.find(eq("m_idClient", idClient)).first() != null;
     }
 
     /**
      * Lecture d'un client.
      */
     public TupleClient getClient(int idClient) {
-        stmtExiste.setParameter("idClient", idClient);
-        List<TupleClient> lTupleClient = stmtExiste.getResultList();
-        if (!lTupleClient.isEmpty())
+        Document doc = clientsCollections.find(eq("m_idClient", idClient)).first();
+        if (doc != null)
         {
-            return lTupleClient.get(0);
+            return new TupleClient(doc);
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /**
      * Ajout d'un nouveau tupleClient.
      */
-    public TupleClient ajouter(TupleClient tupleClient) {
-        cx.getConnection().persist(tupleClient);
-        return tupleClient;
+    public void ajouter(TupleClient tupleClient) {
+        clientsCollections.insertOne(tupleClient.toDocument());
     }
 
     /**
      * Suppression d'un tupleClient.
      */
     public boolean supprimer(TupleClient tupleClient) {
-        if (tupleClient != null)
-        {
-            cx.getConnection().remove(tupleClient);
-            return true;
-        }
-        return false;
+        return clientsCollections.deleteOne(eq("m_idClient", tupleClient.getM_idClient())).getDeletedCount() > 0;
     }
 }

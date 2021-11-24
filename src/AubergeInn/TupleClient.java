@@ -12,8 +12,6 @@ public class TupleClient {
     private String m_nom;
     private int m_age;
 
-    @OneToMany(mappedBy = "m_client")
-    @OrderBy("m_datedebut")
     private List<TupleReservation> m_clientreservation;
 
     public TupleClient(){}
@@ -24,7 +22,9 @@ public class TupleClient {
         m_prenom = d.getString("prenom");
         m_nom = d.getString("nom");
         m_age = d.getInteger("age");
-        m_clientreservation = d.getInteger("clientreservation");
+
+        // TODO; Vérifier si on peut mettre des listes dans un document
+        m_clientreservation = (List<TupleReservation>) d.get("clientreservation");
     }
 
     public TupleClient(int idClient, String prenom, String nom, int age) {
@@ -32,6 +32,8 @@ public class TupleClient {
         m_prenom = prenom;
         m_nom = nom;
         m_age = age;
+
+        // TODO; Vérifier si on peut mettre des listes dans un document
         m_clientreservation = new LinkedList<TupleReservation>();
     }
 
@@ -54,6 +56,14 @@ public class TupleClient {
     public void ajoutReservation(TupleReservation r){m_clientreservation.add(r);}
     public void supprimerReservation(TupleReservation r){m_clientreservation.remove(r);}
 
+    public Document toDocument() {
+        return new Document().append("m_idClient", m_idClient)
+                .append("m_prenom", m_prenom)
+                .append("m_nom", m_nom)
+                .append("m_age", m_age)
+                .append("m_clientreservation", m_clientreservation);
+    }
+
     /**
      *  Pour afficher un client
      */
@@ -72,7 +82,6 @@ public class TupleClient {
             toPrint.append("Date de début: "+ r.getM_datedebut().toString() + "\n");
             toPrint.append("Date de Fin: "+ r.getM_dateFin().toString() + "\n");
             toPrint.append("Prix: " + c.getPrixTotal() + "$\n");
-            toPrint.append("------\n");
         }
         return toPrint.toString();
     }

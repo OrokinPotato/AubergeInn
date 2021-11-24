@@ -26,7 +26,7 @@ public class GestionClient {
                 throw new IFT287Exception("Client déjà existant: " + idClient);
             }
 
-                tableClients.ajouter(idClient, prenom, nom, age);
+                tableClients.ajouter(new TupleClient(idClient, prenom, nom, age));
 
         }
         catch (Exception e)
