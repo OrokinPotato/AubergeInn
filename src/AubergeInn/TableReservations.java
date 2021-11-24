@@ -27,7 +27,7 @@ public class TableReservations {
     }
 
     public TupleReservation getReservationClient(TupleClient c) {
-        Document d = reservationsCollection.find(eq("idClient", c.getM_idClient())).first();
+        Document d = reservationsCollection.find(eq("m_idClient", c.getM_idClient())).first();
         if (d != null)
         {
             return new TupleReservation(d);

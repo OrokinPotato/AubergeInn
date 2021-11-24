@@ -1,16 +1,19 @@
 package AubergeInn;
 
-import javax.persistence.TypedQuery;
-import java.util.List;
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+
 
 public class TableCommodites {
 
-    private TypedQuery<TupleCommodite> stmtExiste;
+    private MongoCollection<Document> commoditesCollection;
     private Connexion cx;
 
     public TableCommodites(Connexion cx) {
         this.cx = cx;
-        stmtExiste = cx.getConnection().createQuery("select c from TupleCommodite c where c.m_idCom = :idCom", TupleCommodite.class);
+        commoditesCollection = cx.getDatabase().getCollection("TableCommodites");
     }
 
     public Connexion getConnexion() {
@@ -18,8 +21,7 @@ public class TableCommodites {
     }
 
     public boolean existe(int idCom) {
-        stmtExiste.setParameter("idCom", idCom);
-        return !stmtExiste.getResultList().isEmpty();
+        return commoditesCollection.find(eq("m_idCom", idCom)).first() != null;
 
     }
 
@@ -27,23 +29,18 @@ public class TableCommodites {
      * Lecture d'une commodite.
      */
     public TupleCommodite getCommodite(int idCom) {
-        stmtExiste.setParameter("idCom", idCom);
-        List<TupleCommodite> lCom = stmtExiste.getResultList();
-        if (!lCom.isEmpty())
+        Document doc = commoditesCollection.find(eq("m_idCom", idCom)).first();
+        if (doc != null)
         {
-            return lCom.get(0);
+            return new TupleCommodite(doc);
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /**
      * Ajout d'une nouvelle commodite.
      */
-    public TupleCommodite ajouter(TupleCommodite com) {
-        cx.getConnection().persist(com);
-        return com;
+    public void ajouter(TupleCommodite com) {
+        commoditesCollection.insertOne(com.toDocument());
     }
 }

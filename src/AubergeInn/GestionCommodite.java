@@ -5,7 +5,6 @@ public class GestionCommodite {
     private TableCommodites tableCommodites;
 
     public GestionCommodite(TableCommodites tableCommodites) {
-        this.cx = tableCommodites.getConnexion();
         this.tableCommodites = tableCommodites;
     }
 
@@ -19,7 +18,7 @@ public class GestionCommodite {
                 throw new IFT287Exception("Commodite déjà existante: " + idCom);
             }
 
-            tableCommodites.ajouter(idCom, description, prix);
+            tableCommodites.ajouter(new TupleCommodite(idCom, description, prix));
         }
         catch (Exception e)
         {

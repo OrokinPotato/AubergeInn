@@ -12,7 +12,6 @@ public class TupleCommodite {
     private String m_desc;
     private double m_prix;
 
-    @ManyToMany(mappedBy = "m_commoditechambre", cascade = CascadeType.ALL)
     private List<TupleChambre> m_chambre;
 
     public TupleCommodite(Document d)
@@ -20,13 +19,17 @@ public class TupleCommodite {
         m_idCom = d.getInteger("idReservation");
         m_desc = d.getString("description");
         m_prix = d.getDouble("prix");
-        m_chambre = d.get("chambre");
+
+        // TODO; Vérifier si on peut mettre des listes dans un document
+        m_chambre = (List<TupleChambre>) d.get("chambre");
     }
 
     public TupleCommodite(int idCom, String description, double prix) {
         m_idCom = idCom;
         m_desc = description;
         m_prix = prix;
+
+        // TODO; Vérifier si on peut mettre des listes dans un document
         m_chambre = new LinkedList<TupleChambre>();
     }
 
@@ -48,5 +51,12 @@ public class TupleCommodite {
 
     public List<TupleChambre> getM_chambre() {
         return m_chambre;
+    }
+
+    public Document toDocument() {
+        return new Document().append("m_idCom", m_idCom)
+                .append("m_desc", m_desc)
+                .append("m_prix", m_prix)
+                .append("m_chambre", m_chambre);
     }
 }
