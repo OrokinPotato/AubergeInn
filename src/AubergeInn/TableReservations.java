@@ -19,9 +19,6 @@ public class TableReservations {
     public TableReservations(Connexion cx) {
         this.cx = cx;
         reservationsCollection = cx.getDatabase().getCollection("Reservations");
-        //   stmtExiste = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client and r.m_chambre = :chambre", TupleReservation.class);
-        //  stmtExisteClient = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client", TupleReservation.class);
-        //  stmtExisteChambre = cx.getConnection().createQuery("select r from TupleReservation r where r.m_chambre = :chambre", TupleReservation.class);
     }
 
     public Connexion getConnexion() {
@@ -37,18 +34,18 @@ public class TableReservations {
         return null;
     }
 
-    public TupleReservation getReservationChambre(int idChambre) {
-        Document d = reservationsCollection.find(eq("idChambre", idChambre)).first();
-        if(d != null)
+    public TupleReservation getReservationChambre(TupleChambre c) {
+        Document d = reservationsCollection.find(eq("m_idChambre", c.getM_idChambre())).first();
+        if (d != null)
         {
             return new TupleReservation(d);
         }
         return null;
     }
 
-    public boolean existe(int idChambre, int idClient, Date dateDebut, Date dateFin) {
-        // TODO: Changer ça
-        return reservationsCollection.find(eq("idReservation", idReservation)).first() != null;
+    public boolean existe(int idClient, int idChambre) {
+        // TODO: Changer ça. Il faudrait chercher avec la date de début aussi?
+        return reservationsCollection.find(eq("m_idClient", idClient)).first() != null || reservationsCollection.find(eq("m_idChambre", idChambre)).first() != null;
     }
 
     public void reserver(int idClient, int idChambre, Date dateDebut, Date dateFin) {

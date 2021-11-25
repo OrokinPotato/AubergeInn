@@ -51,7 +51,7 @@ public class GestionChambre {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
 
-            if (tableReservations.getReservationChambre(idChambre) != null)
+            if (tableReservations.getReservationChambre(idchambre) != null)
             {
                 throw new IFT287Exception("Chambre encore réservée: " + idChambre);
             }

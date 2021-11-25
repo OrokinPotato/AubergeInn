@@ -18,13 +18,13 @@ public class TupleClient {
 
     public TupleClient(Document d)
     {
-        m_idClient = d.getInteger("idClient");
-        m_prenom = d.getString("prenom");
-        m_nom = d.getString("nom");
-        m_age = d.getInteger("age");
+        m_idClient = d.getInteger("m_idClient");
+        m_prenom = d.getString("m_prenom");
+        m_nom = d.getString("m_nom");
+        m_age = d.getInteger("m_age");
 
         // TODO; Vérifier si on peut mettre des listes dans un document
-        m_clientreservation = (List<TupleReservation>) d.get("clientreservation");
+        m_clientreservation = (List<TupleReservation>) d.get("m_clientreservation");
     }
 
     public TupleClient(int idClient, String prenom, String nom, int age) {
