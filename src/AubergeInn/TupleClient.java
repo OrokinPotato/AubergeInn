@@ -64,6 +64,7 @@ public class TupleClient {
                 .append("m_clientreservation", m_clientreservation);
     }
 
+    //TODO: mettre ça dans tableClient
     /**
      *  Pour afficher un client
      */
@@ -77,7 +78,7 @@ public class TupleClient {
         toPrint.append("Réservation du client: \n");
         for (TupleReservation r:m_clientreservation) {
             toPrint.append("------\n");
-            TupleChambre c = r.getM_chambre();
+            TupleChambre c = r.getM_Chambre();
             toPrint.append("Identifiant de la chambre: " + c.getM_idChambre() + "\n");
             toPrint.append("Date de début: "+ r.getM_datedebut().toString() + "\n");
             toPrint.append("Date de Fin: "+ r.getM_dateFin().toString() + "\n");

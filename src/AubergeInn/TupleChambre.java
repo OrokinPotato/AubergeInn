@@ -16,9 +16,6 @@ public class TupleChambre {
 
     private List<TupleReservation> m_chambrereservation;
 
-  //  @ManyToMany(targetEntity = TupleCommodite.class, cascade = {CascadeType.ALL})
-  //  @JoinTable(name = "comChambre", joinColumns = { @JoinColumn(name = "idChambre") },
-   //         inverseJoinColumns = { @JoinColumn(name = "idCommodite") })
     private List<TupleCommodite> m_commoditechambre;
 
     public TupleChambre() {

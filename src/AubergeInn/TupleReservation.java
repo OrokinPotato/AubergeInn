@@ -5,7 +5,6 @@ import org.bson.Document;
 
 public class TupleReservation {
 
-    private int m_idReservation;
     private int m_idClient;
     private int m_idChambre;
 
@@ -14,27 +13,23 @@ public class TupleReservation {
 
     public TupleReservation(Document d)
     {
-        m_idReservation = d.getInteger("idReservation");
         m_idClient = d.getInteger("idClient");
         m_idChambre = d.getInteger("idChambre");
         m_dateDebut = d.getDate("dateDebut");
         m_dateFin = d.getDate("dateFin");
     }
 
-    public TupleReservation(int idReservation, int idClient, int idChambre, Date dateDebut, Date dateFin) {
-        m_idReservation = idReservation;
-        m_dateDebut = dateDebut;
-        m_dateFin = dateFin;
-
+    public TupleReservation(int idClient, int idChambre, Date dateDebut, Date dateFin) {
         m_idClient = idClient;
         m_idChambre = idChambre;
+        m_dateDebut = dateDebut;
+        m_dateFin = dateFin;
     }
 
     public TupleReservation() {
 
     }
 
-    public int getM_idReservation(){ return m_idReservation; }
 
     public int getM_client() {
         return m_idClient;
@@ -50,5 +45,13 @@ public class TupleReservation {
 
     public Date getM_dateFin() {
         return m_dateFin;
+    }
+
+    public Document toDocument()
+    {
+        return new Document().append("idClient", m_idClient)
+                .append("idChambre", m_idChambre)
+                .append("dateDebut", m_dateDebut)
+                .append("dateFin", m_dateFin);
     }
 }
