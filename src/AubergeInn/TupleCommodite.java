@@ -16,12 +16,12 @@ public class TupleCommodite {
 
     public TupleCommodite(Document d)
     {
-        m_idCom = d.getInteger("idReservation");
-        m_desc = d.getString("description");
-        m_prix = d.getDouble("prix");
+        m_idCom = d.getInteger("m_idCom");
+        m_desc = d.getString("m_desc");
+        m_prix = d.getDouble("m_prix");
 
         // TODO; Vérifier si on peut mettre des listes dans un document
-        m_chambre = (List<TupleChambre>) d.get("chambre");
+        m_chambre = (List<TupleChambre>) d.get("m_chambre");
     }
 
     public TupleCommodite(int idCom, String description, double prix) {

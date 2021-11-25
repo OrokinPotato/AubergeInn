@@ -39,7 +39,8 @@ public class GestionReservation {
 
             TupleClient client = tableClients.getClient(idClient);
             TupleChambre chambre = tableChambres.getChambre(idChambre);
-            if (tableReservations.existe(client, chambre))
+
+            if (tableReservations.existe(idClient, idChambre))
             {
                 throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre);
             }
@@ -48,7 +49,6 @@ public class GestionReservation {
 
             tableReservations.reserver(reservation);
             client.ajoutReservation(reservation);
-            chambre.ajoutReservation(reservation);
             chambre.ajoutReservation(reservation);
         }
         catch (Exception e)

@@ -27,10 +27,10 @@ public class TupleChambre {
 
     public TupleChambre(Document d)
     {
-        m_idChambre = d.getInteger("idChambre");
-        m_nomChambre = d.getString("nomChambre");
-        m_typelit = d.getString("typeLit");
-        m_prix = d.getDouble("prix");
+        m_idChambre = d.getInteger("m_idChambre");
+        m_nomChambre = d.getString("m_nomChambre");
+        m_typelit = d.getString("m_typelit");
+        m_prix = d.getDouble("m_prix");
         m_chambrereservation = new LinkedList<TupleReservation>();
         m_commoditechambre = new LinkedList<TupleCommodite>();
     }

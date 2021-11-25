@@ -17,9 +17,6 @@ public class TableReservations {
     public TableReservations(Connexion cx) {
         this.cx = cx;
         reservationsCollection = cx.getDatabase().getCollection("Reservations");
-     //   stmtExiste = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client and r.m_chambre = :chambre", TupleReservation.class);
-      //  stmtExisteClient = cx.getConnection().createQuery("select r from TupleReservation r where r.m_client = :client", TupleReservation.class);
-      //  stmtExisteChambre = cx.getConnection().createQuery("select r from TupleReservation r where r.m_chambre = :chambre", TupleReservation.class);
     }
 
     public Connexion getConnexion() {
@@ -36,20 +33,19 @@ public class TableReservations {
     }
 
     public TupleReservation getReservationChambre(TupleChambre c) {
-        stmtExisteChambre.setParameter("chambre", c);
-        List<TupleReservation> lRes = stmtExisteChambre.getResultList();
-        if (!lRes.isEmpty())
+        Document d = reservationsCollection.find(eq("m_idChambre", c.getM_idChambre())).first();
+        if (d != null)
         {
-            return lRes.get(0);
+            return new TupleReservation(d);
         }
         return null;
     }
 
-    public boolean existe(int idReservation) {
-        return reservationsCollection.find(eq("idReservation", idReservation)).first() != null;
+    public boolean existe(int idClient, int idChambre) {
+        return reservationsCollection.find(eq("m_idClient", idClient)).first() != null || reservationsCollection.find(eq("m_idChambre", idChambre)).first() != null;
     }
 
     public void reserver(TupleReservation r) {
-        cx.getConnection().persist(r);
+        reservationsCollection.insertOne(r.toDocument());
     }
 }
