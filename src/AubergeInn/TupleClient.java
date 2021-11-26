@@ -14,8 +14,6 @@ public class TupleClient {
 
     private List<TupleReservation> m_clientreservation;
 
-    public TupleClient(){}
-
     public TupleClient(Document d)
     {
         m_idClient = d.getInteger("m_idClient");

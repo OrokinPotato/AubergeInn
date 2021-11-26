@@ -34,8 +34,8 @@ public class TableReservations {
         return null;
     }
 
-    public TupleReservation getReservationChambre(TupleChambre c) {
-        Document d = reservationsCollection.find(eq("m_idChambre", c.getM_idChambre())).first();
+    public TupleReservation getReservationChambre(int idChambre) {
+        Document d = reservationsCollection.find(eq("m_idChambre", idChambre)).first();
         if (d != null)
         {
             return new TupleReservation(d);

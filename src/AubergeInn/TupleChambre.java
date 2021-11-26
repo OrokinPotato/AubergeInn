@@ -18,18 +18,14 @@ public class TupleChambre {
 
     private List<TupleCommodite> m_commoditechambre;
 
-    public TupleChambre() {
-    }
-
-
     public TupleChambre(Document d)
     {
         m_idChambre = d.getInteger("m_idChambre");
         m_nomChambre = d.getString("m_nomChambre");
         m_typelit = d.getString("m_typelit");
         m_prix = d.getDouble("m_prix");
-        m_chambrereservation = new LinkedList<TupleReservation>();
-        m_commoditechambre = new LinkedList<TupleCommodite>();
+        m_chambrereservation = (List<TupleReservation>) d.get("m_chambrereservation");
+        m_commoditechambre = (List<TupleCommodite>) d.get("m_commoditechambre");
     }
 
     public TupleChambre(int idChambre, String nomChambre, String typeLit, double prix) {
@@ -103,9 +99,11 @@ public class TupleChambre {
 
     public Document toDocument()
     {
-        return new Document().append("idChambre", m_idChambre)
-                .append("nomChambre", m_nomChambre)
-                .append("typeLit", m_typelit)
-                .append("prix", m_prix);
+        return new Document().append("m_idChambre", m_idChambre)
+                .append("m_nomChambre", m_nomChambre)
+                .append("m_typelit", m_typelit)
+                .append("m_prix", m_prix)
+                .append("m_chambrereservation", m_chambrereservation)
+                .append("m_commoditechambre", m_commoditechambre);
     }
 }

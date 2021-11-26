@@ -37,7 +37,7 @@ public class GestionReservation {
                 throw new IFT287Exception("La date de début est après la date de fin: " + dateDebut + ">" + dateFin);
             }
 
-            if (tableReservations.existe(idClient, idChambre, dateDebut, dateFin))
+            if (tableReservations.existe(idClient, idChambre))
             {
                 throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre);
             }

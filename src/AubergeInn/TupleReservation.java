@@ -17,10 +17,14 @@ public class TupleReservation {
 
     public TupleReservation(Document d)
     {
-        m_idClient = d.getInteger("idClient");
-        m_idChambre = d.getInteger("idChambre");
-        m_dateDebut = d.getDate("dateDebut");
-        m_dateFin = d.getDate("dateFin");
+        m_idClient = d.getInteger("m_idClient");
+        m_idChambre = d.getInteger("m_idChambre");
+        m_dateDebut = d.getDate("m_dateDebut");
+        m_dateFin = d.getDate("m_dateFin");
+
+        // TODO: Verifier l'utilisation d'objet non standard (pas un int, char, etc.) dans un doc bson
+        m_client = (TupleClient) d.get("m_client");
+        m_chambre = (TupleChambre) d.get("m_chambre");
     }
 
     public TupleReservation(int idClient, int idChambre, Date dateDebut, Date dateFin) {
@@ -29,10 +33,6 @@ public class TupleReservation {
         m_idChambre = idChambre;
         m_dateDebut = dateDebut;
         m_dateFin = dateFin;
-    }
-
-    public TupleReservation() {
-
     }
 
 

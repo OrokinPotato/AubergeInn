@@ -33,9 +33,6 @@ public class TupleCommodite {
         m_chambre = new LinkedList<TupleChambre>();
     }
 
-    public TupleCommodite() {
-
-    }
 
     public int getM_idCom() {
         return m_idCom;

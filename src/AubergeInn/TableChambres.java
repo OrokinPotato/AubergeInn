@@ -26,7 +26,7 @@ public class TableChambres {
     }
 
     public TupleChambre getChambre(int idChambre) {
-        Document l = chambresCollection.find(eq("idChambre", idChambre)).first();
+        Document l = chambresCollection.find(eq("m_idChambre", idChambre)).first();
         if(l != null){
             return new TupleChambre(l);
         }
@@ -53,7 +53,7 @@ public class TableChambres {
 
     public boolean existe(int idChambre) {
 
-        return chambresCollection.find(eq("idChambre", idChambre)).first() != null;
+        return chambresCollection.find(eq("m_idChambre", idChambre)).first() != null;
     }
 
     public void ajouter(int idChambre, String nomChambre, String typeLit, double prix) {
@@ -63,6 +63,6 @@ public class TableChambres {
     }
 
     public boolean supprimer(int idChambre) {
-        return chambresCollection.deleteOne(eq("idChambre", idChambre)).getDeletedCount() > 0;
+        return chambresCollection.deleteOne(eq("m_idChambre", idChambre)).getDeletedCount() > 0;
     }
 }
