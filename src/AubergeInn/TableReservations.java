@@ -30,6 +30,7 @@ public class TableReservations {
 
     public List<TupleReservation> getReservationClient(int idClient) {
         List<TupleReservation> reservationList = new LinkedList<>();
+        MongoCursor<Document> d = reservationsCollection.find(eq("m_idChambre", idClient)).iterator();
         MongoCursor<Document> d = reservationsCollection.find(eq("m_idClient", idClient)).iterator();
         try {
             while (d.hasNext()) {

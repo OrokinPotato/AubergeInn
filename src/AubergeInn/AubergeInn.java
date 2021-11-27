@@ -235,7 +235,7 @@ public class AubergeInn
         else if (command.equals("afficherClient"))
         {
             int idClient = readInt(tokenizer);
-            gestionAub.getGestionClients().afficherClient(idClient);
+            gestionAub.getGestionReservations().afficherClient(idClient);
         }
         // *******************
         // afficherChambre

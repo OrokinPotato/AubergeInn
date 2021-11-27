@@ -2,6 +2,7 @@ package AubergeInn;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class GestionReservation {
 
@@ -67,12 +68,47 @@ public class GestionReservation {
             }
 
             TupleClient client = tableClients.getClient(idClient);
-            List<TupleReservation> lReservation = tableReservations.getReservationClient(idClient);
+            List<TupleReservation> lRes = tableReservations.getReservationClient(client);
+
+            //Affichage
+            StringBuffer toPrint = new StringBuffer("");
+            toPrint.append("Identifiant du client: " + client.getM_idClient() + "\n");
+            toPrint.append("Nom: " + client.getM_nom() + "\n");
+            toPrint.append("Prenom: " + client.getM_prenom() + "\n");
+            toPrint.append("Age: " + client.getM_age() + "\n");
+            toPrint.append("Réservation du client: \n");
+
 
         }
-        catch (Exception e) {
-                throw e;
+        catch (Exception e)
+        {
+            throw e;
         }
     }
 
+    /**
+     *  Pour afficher un client
+     */
+    public String print(TupleClient client, List<TupleReservation> reservations)
+    {
+        StringBuffer toPrint = new StringBuffer("");
+        toPrint.append("Identifiant du client: " + client.getM_idClient() + "\n");
+        toPrint.append("Nom: " + client.getM_nom() + "\n");
+        toPrint.append("Prenom: " + client.getM_prenom() + "\n");
+        toPrint.append("Age: " + client.getM_age() + "\n");
+        toPrint.append("Réservation du client: \n");
+
+        for (TupleReservation r:reservations) {
+
+            toPrint.append("------\n");
+            //TODO: changer ça pour qu'on aille chercher les infos des chambres impliquées dans les réservations du client
+
+            TupleChambre c = r.getM_Chambre();
+            toPrint.append("Identifiant de la chambre: " + c.getM_idChambre() + "\n");
+            toPrint.append("Date de début: "+ r.getM_datedebut().toString() + "\n");
+            toPrint.append("Date de Fin: "+ r.getM_dateFin().toString() + "\n");
+            toPrint.append("Prix: " + c.getPrixTotal() + "$\n");
+        }
+        return toPrint.toString();
+    }
 }
