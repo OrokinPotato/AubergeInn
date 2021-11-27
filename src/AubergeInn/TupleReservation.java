@@ -9,8 +9,8 @@ public class TupleReservation {
     private int m_idChambre;
 
     // TODO: Verifier l'utilisation d'objet non standard (pas un int, char, etc.) dans un doc bson
-    private TupleClient m_client;
-    private TupleChambre m_chambre;
+    //private TupleClient m_client;
+    //private TupleChambre m_chambre;
 
     private Date m_dateDebut;
     private Date m_dateFin;
@@ -62,9 +62,7 @@ public class TupleReservation {
     public Document toDocument()
     {
         return new Document().append("m_idClient", m_idClient)
-                .append("m_client", m_client)
                 .append("m_idChambre", m_idChambre)
-                .append("m_chambre", m_chambre)
                 .append("m_dateDebut", m_dateDebut)
                 .append("m_dateFin", m_dateFin);
     }

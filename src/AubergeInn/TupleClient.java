@@ -12,7 +12,7 @@ public class TupleClient {
     private String m_nom;
     private int m_age;
 
-    private List<TupleReservation> m_clientreservation;
+    private List<TupleReservation> m_clientReservation = new ArrayList<TupleReservation>();
 
     public TupleClient(Document d)
     {
@@ -32,7 +32,7 @@ public class TupleClient {
         m_age = age;
 
         // TODO; Vérifier si on peut mettre des listes dans un document
-        m_clientreservation = new LinkedList<TupleReservation>();
+        m_clientReservation = new ArrayList<TupleReservation>();
     }
 
     public int getM_idClient() {

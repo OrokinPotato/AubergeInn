@@ -1,6 +1,8 @@
 package AubergeInn;
 
 import org.bson.Document;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class TupleCommodite {
     private String m_desc;
     private double m_prix;
 
-    private List<TupleChambre> m_chambre;
+    private List<TupleChambre> m_chambre = new ArrayList<TupleChambre>();
 
     public TupleCommodite(Document d)
     {
@@ -30,7 +32,7 @@ public class TupleCommodite {
         m_prix = prix;
 
         // TODO; Vérifier si on peut mettre des listes dans un document
-        m_chambre = new LinkedList<TupleChambre>();
+        m_chambre = new ArrayList<TupleChambre>();
     }
 
 

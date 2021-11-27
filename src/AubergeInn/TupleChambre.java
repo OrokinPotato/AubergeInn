@@ -33,8 +33,10 @@ public class TupleChambre {
         m_nomChambre = nomChambre;
         m_typelit = typeLit;
         m_prix = prix;
-        m_chambrereservation = new LinkedList<TupleReservation>();
-        m_commoditechambre = new LinkedList<TupleCommodite>();
+
+        //m_chambrereservation = new LinkedList<TupleReservation>();
+
+        m_commoditechambre = new ArrayList<TupleCommodite>();
     }
 
 
@@ -63,15 +65,15 @@ public class TupleChambre {
         return fPrix + m_prix;
     }
 
-    public List<TupleReservation> getM_chambrereservation() {
-        return m_chambrereservation;
-    }
+    //public List<TupleReservation> getM_chambrereservation() { return m_chambrereservation;}
     public List<TupleCommodite> getM_commoditechambre() {
         return m_commoditechambre;
     }
 
+    /*
     public void ajoutReservation(TupleReservation r){m_chambrereservation.add(r);}
     public void supprimerReservation(TupleReservation r){m_chambrereservation.remove(r);}
+    */
 
     public void ajoutCommodite(TupleCommodite c){m_commoditechambre.add(c);}
     public void supprimerCommodite(TupleCommodite c){m_commoditechambre.remove(c);}
@@ -103,7 +105,7 @@ public class TupleChambre {
                 .append("m_nomChambre", m_nomChambre)
                 .append("m_typelit", m_typelit)
                 .append("m_prix", m_prix)
-                .append("m_chambrereservation", m_chambrereservation)
+                //.append("m_chambrereservation", m_chambrereservation)
                 .append("m_commoditechambre", m_commoditechambre);
     }
 }

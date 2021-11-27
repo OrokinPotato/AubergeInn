@@ -1,5 +1,6 @@
 package AubergeInn;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class GestionReservation {
@@ -37,7 +38,7 @@ public class GestionReservation {
                 throw new IFT287Exception("La date de début est après la date de fin: " + dateDebut + ">" + dateFin);
             }
 
-            if (tableReservations.existe(idClient, idChambre))
+            if (tableReservations.existe(idClient, idChambre, dateDebut))
             {
                 throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre + "/" + dateDebut);
             }
@@ -46,11 +47,32 @@ public class GestionReservation {
 
             tableReservations.reserver(idClient, idChambre, dateDebut, dateFin);
             tableClients.getClient(idClient).ajoutReservation(reservation);
-            tableChambres.getChambre(idChambre).ajoutReservation(reservation);
+
+           // tableChambres.getChambre(idChambre).ajoutReservation(reservation);
         }
         catch (Exception e)
         {
             throw e;
         }
     }
+
+    /**
+     *  Commande d'affichage des informations sur un client.
+     */
+    public void afficherClient(int idClient) throws IFT287Exception {
+        try {
+            if (!tableClients.existe(idClient))
+            {
+                throw new IFT287Exception("Client inexistant: " + idClient);
+            }
+
+            TupleClient client = tableClients.getClient(idClient);
+            List<TupleReservation> lReservation = tableReservations.getReservationClient(idClient);
+
+        }
+        catch (Exception e) {
+                throw e;
+        }
+    }
+
 }

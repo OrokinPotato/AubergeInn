@@ -1,5 +1,7 @@
 package AubergeInn;
 
+import java.util.ArrayList;
+
 public class GestionClient {
 
     private TableClients tableClients;
@@ -48,7 +50,7 @@ public class GestionClient {
             {
                 throw new IFT287Exception("Client inexistant: " + idClient);
             }
-            if (tableReservations.getReservationClient(client) != null)
+            if (tableReservations.getReservationClient(idClient) != null)
             {
                 throw new IFT287Exception("Client ayant encore des réservations: " + idClient);
             }
@@ -75,7 +77,8 @@ public class GestionClient {
             }
 
             TupleClient client = tableClients.getClient(idClient);
-            System.out.println(client.print());
+            List<TupleReservation> lReservation = tableReservations.getReservationClient(idClient);
+            System.out.println(print(client, lReservation));
         }
         catch (Exception e)
         {

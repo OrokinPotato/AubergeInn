@@ -28,13 +28,18 @@ public class TableReservations {
         return cx;
     }
 
-    public TupleReservation getReservationClient(TupleClient c) {
-        Document d = reservationsCollection.find(eq("m_idClient", c.getM_idClient())).first();
-        if (d != null)
-        {
-            return new TupleReservation(d);
+    public List<TupleReservation> getReservationClient(int idClient) {
+        List<TupleReservation> reservationList = new LinkedList<>();
+        MongoCursor<Document> d = reservationsCollection.find(eq("m_idClient", idClient)).iterator();
+        try {
+            while (d.hasNext()) {
+                reservationList.add(new TupleReservation((d.next())));
+            }
         }
-        return null;
+        finally {
+            d.close();
+        }
+        return reservationList;
     }
 
     public List<TupleReservation> getReservationChambre(int idChambre) {
