@@ -64,6 +64,7 @@ public class AubergeInn
             boolean lectureAuClavier = true;
             InputStream sourceTransaction = System.in;
             if (args.length > 4)
+
             {
                 sourceTransaction = new FileInputStream(args[4]);
                 lectureAuClavier = false;
@@ -243,6 +244,13 @@ public class AubergeInn
         {
             int idChambre = readInt(tokenizer);
             gestionAub.getGestionChambres().afficherChambre(idChambre);
+        }
+        // *******************
+        // exit
+        // *******************
+        else if (command.equals("exit"))
+        {
+            gestionAub.fermer();
         }
         // *********************
         // Commentaire : ligne d�butant par --

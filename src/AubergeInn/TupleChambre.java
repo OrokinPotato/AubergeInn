@@ -2,7 +2,7 @@ package AubergeInn;
 
 import org.bson.Document;
 
-
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,9 +14,8 @@ public class TupleChambre {
     private String m_typelit;
     private double m_prix;
 
-    private List<TupleReservation> m_chambrereservation;
-
-    private List<TupleCommodite> m_commoditechambre;
+    //private List<TupleReservation> m_chambrereservation = new ArrayList<TupleReservation>();
+    private List<TupleCommodite> m_commoditechambre = new ArrayList<TupleCommodite>();
 
     public TupleChambre(Document d)
     {
@@ -24,8 +23,9 @@ public class TupleChambre {
         m_nomChambre = d.getString("m_nomChambre");
         m_typelit = d.getString("m_typelit");
         m_prix = d.getDouble("m_prix");
-        m_chambrereservation = (List<TupleReservation>) d.get("m_chambrereservation");
-        m_commoditechambre = (List<TupleCommodite>) d.get("m_commoditechambre");
+        //m_chambrereservation = (List<TupleReservation>) d.get("m_chambrereservation");
+
+        m_commoditechambre = (ArrayList<TupleCommodite>) d.get("m_commoditechambre");
     }
 
     public TupleChambre(int idChambre, String nomChambre, String typeLit, double prix) {

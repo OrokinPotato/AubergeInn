@@ -52,10 +52,13 @@ public class GestionChambre {
                 throw new IFT287Exception("Chambre inexistante: " + idChambre);
             }
 
+            //TODO: vérifier avec la date de réservation > datenow
             if (tableReservations.getReservationChambre(idChambre) != null)
             {
                 throw new IFT287Exception("Chambre encore réservée: " + idChambre);
             }
+
+
             List<TupleCommodite> lCom = chambre.getM_commoditechambre();
             if (!lCom.isEmpty())
             {
@@ -95,11 +98,30 @@ public class GestionChambre {
         try {
             List<TupleChambre> lTupleChambre = tableChambres.getAllChambre();
 
+            Date dateNow = new Date(System.currentTimeMillis());
+
             for (TupleChambre c: lTupleChambre)
             {
-                if (c.getM_chambrereservation().isEmpty())
-                {
+                List<TupleReservation> tupleReservationList = tableReservations.getReservationChambre(c.getM_idChambre());
+
+                if(tupleReservationList == null){
                     System.out.println(c.print());
+                }
+
+                else {
+                    for (TupleReservation r : tupleReservationList) {
+
+                        if(r.getM_datedebut().before(dateNow) && r.getM_dateFin().after(dateNow)){
+                            throw new IFT287Exception("La chambre demandée est réservée durant cette période");
+                        }
+                        else if(r.getM_datedebut().after(dateNow) && r.getM_dateFin().before(dateNow)){
+                            throw new IFT287Exception("La chambre demandée est réservée durant cette période");
+                        }
+                        else{
+                            System.out.println(c.print());
+                            break;
+                        }
+                    }
                 }
             }
         }

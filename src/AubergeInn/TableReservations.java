@@ -1,6 +1,6 @@
 package AubergeInn;
 
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Sorts.ascending;
 
 import java.util.Date;
@@ -56,9 +56,8 @@ public class TableReservations {
         return reservationList;
     }
 
-    public boolean existe(int idClient, int idChambre) {
-        // TODO: Changer ça. Il faudrait chercher avec la date de début aussi?
-        return reservationsCollection.find(eq("m_idClient", idClient)).first() != null || reservationsCollection.find(eq("m_idChambre", idChambre)).first() != null;
+    public boolean existe(int idClient, int idChambre, Date dateDebut) {
+        return reservationsCollection.find(and (eq("m_idClient", idClient), eq("m_idChambre", idChambre), eq("m_dateDebut", dateDebut))).first() !=null;
     }
 
     public void reserver(int idClient, int idChambre, Date dateDebut, Date dateFin) {
