@@ -65,24 +65,4 @@ public class GestionClient {
             throw e;
         }
     }
-
-    /**
-     *  Commande d'affichage des informations sur un client.
-     */
-    public void afficherClient(int idClient) throws IFT287Exception {
-        try {
-            if (!tableClients.existe(idClient))
-            {
-                throw new IFT287Exception("Client inexistant: " + idClient);
-            }
-
-            TupleClient client = tableClients.getClient(idClient);
-            List<TupleReservation> lReservation = tableReservations.getReservationClient(idClient);
-            System.out.println(print(client, lReservation));
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
 }

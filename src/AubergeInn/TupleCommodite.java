@@ -14,7 +14,7 @@ public class TupleCommodite {
     private String m_desc;
     private double m_prix;
 
-    private List<TupleChambre> m_chambre = new ArrayList<TupleChambre>();
+    private ArrayList<TupleChambre> m_chambre = new ArrayList<TupleChambre>();
 
     public TupleCommodite(Document d)
     {
@@ -22,8 +22,7 @@ public class TupleCommodite {
         m_desc = d.getString("m_desc");
         m_prix = d.getDouble("m_prix");
 
-        // TODO; Vérifier si on peut mettre des listes dans un document
-        m_chambre = (List<TupleChambre>) d.get("m_chambre");
+        m_chambre = (ArrayList<TupleChambre>) d.get("m_chambre");
     }
 
     public TupleCommodite(int idCom, String description, double prix) {
@@ -31,7 +30,6 @@ public class TupleCommodite {
         m_desc = description;
         m_prix = prix;
 
-        // TODO; Vérifier si on peut mettre des listes dans un document
         m_chambre = new ArrayList<TupleChambre>();
     }
 
@@ -46,10 +44,6 @@ public class TupleCommodite {
 
     public double getM_prix() {
         return m_prix;
-    }
-
-    public List<TupleChambre> getM_chambre() {
-        return m_chambre;
     }
 
     public Document toDocument() {

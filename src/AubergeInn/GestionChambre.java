@@ -58,6 +58,13 @@ public class GestionChambre {
                 throw new IFT287Exception("Chambre encore réservée: " + idChambre);
             }
 
+            List<TupleReservation> tupleReservationList = tableReservations.getReservationChambre(idChambre);
+            Date dateNow = new Date(System.currentTimeMillis());
+
+            for (TupleReservation tupleReservation : tupleReservationList) {
+                if (tupleReservation.getM_dateFin().after(dateNow))
+                    throw new IFT287Exception("Chambre encore réservée: " + idChambre);
+            }
 
             List<TupleCommodite> lCom = chambre.getM_commoditechambre();
             if (!lCom.isEmpty())
@@ -76,7 +83,6 @@ public class GestionChambre {
         }
     }
 
-    // TODO: déplacer cette méthode dans TableChambres?
     public void afficherChambre(int idChambre) throws IFT287Exception
     {
         try {
@@ -92,7 +98,6 @@ public class GestionChambre {
             throw e;
         }
     }
-
 
     public void afficherChambresLibres() throws IFT287Exception {
         try {

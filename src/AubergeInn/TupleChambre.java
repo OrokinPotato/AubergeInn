@@ -14,8 +14,7 @@ public class TupleChambre {
     private String m_typelit;
     private double m_prix;
 
-    //private List<TupleReservation> m_chambrereservation = new ArrayList<TupleReservation>();
-    private List<TupleCommodite> m_commoditechambre = new ArrayList<TupleCommodite>();
+    private ArrayList<TupleCommodite> m_commoditechambre = new ArrayList<TupleCommodite>();
 
     public TupleChambre(Document d)
     {
@@ -23,7 +22,6 @@ public class TupleChambre {
         m_nomChambre = d.getString("m_nomChambre");
         m_typelit = d.getString("m_typelit");
         m_prix = d.getDouble("m_prix");
-        //m_chambrereservation = (List<TupleReservation>) d.get("m_chambrereservation");
 
         m_commoditechambre = (ArrayList<TupleCommodite>) d.get("m_commoditechambre");
     }
@@ -34,26 +32,12 @@ public class TupleChambre {
         m_typelit = typeLit;
         m_prix = prix;
 
-        //m_chambrereservation = new LinkedList<TupleReservation>();
-
         m_commoditechambre = new ArrayList<TupleCommodite>();
     }
 
 
     public int getM_idChambre() {
         return m_idChambre;
-    }
-
-    public String getM_nomChambre() {
-        return m_nomChambre;
-    }
-
-    public String getM_typelit() {
-        return m_typelit;
-    }
-
-    public double getM_prix() {
-        return m_prix;
     }
 
     public double getPrixTotal()
@@ -65,15 +49,9 @@ public class TupleChambre {
         return fPrix + m_prix;
     }
 
-    //public List<TupleReservation> getM_chambrereservation() { return m_chambrereservation;}
-    public List<TupleCommodite> getM_commoditechambre() {
+    public ArrayList<TupleCommodite> getM_commoditechambre() {
         return m_commoditechambre;
     }
-
-    /*
-    public void ajoutReservation(TupleReservation r){m_chambrereservation.add(r);}
-    public void supprimerReservation(TupleReservation r){m_chambrereservation.remove(r);}
-    */
 
     public void ajoutCommodite(TupleCommodite c){m_commoditechambre.add(c);}
     public void supprimerCommodite(TupleCommodite c){m_commoditechambre.remove(c);}
@@ -105,7 +83,6 @@ public class TupleChambre {
                 .append("m_nomChambre", m_nomChambre)
                 .append("m_typelit", m_typelit)
                 .append("m_prix", m_prix)
-                //.append("m_chambrereservation", m_chambrereservation)
                 .append("m_commoditechambre", m_commoditechambre);
     }
 }

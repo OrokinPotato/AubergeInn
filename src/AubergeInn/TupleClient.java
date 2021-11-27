@@ -13,7 +13,7 @@ public class TupleClient {
     private String m_nom;
     private int m_age;
 
-    private List<TupleReservation> m_clientReservation = new ArrayList<TupleReservation>();
+    private ArrayList<TupleReservation> m_clientReservation = new ArrayList<TupleReservation>();
 
     public TupleClient(Document d)
     {
@@ -22,8 +22,7 @@ public class TupleClient {
         m_nom = d.getString("m_nom");
         m_age = d.getInteger("m_age");
 
-        // TODO; Vérifier si on peut mettre des listes dans un document
-        m_clientReservation = (List<TupleReservation>) d.get("m_clientreservation");
+        m_clientReservation = (ArrayList<TupleReservation>) d.get("m_clientreservation");
     }
 
     public TupleClient(int idClient, String prenom, String nom, int age) {
@@ -53,7 +52,6 @@ public class TupleClient {
     }
 
     public void ajoutReservation(TupleReservation r){m_clientReservation.add(r);}
-    public void supprimerReservation(TupleReservation r){m_clientReservation.remove(r);}
 
     public Document toDocument() {
         return new Document().append("m_idClient", m_idClient)
