@@ -39,7 +39,7 @@ public class GestionReservation {
 
             if (tableReservations.existe(idClient, idChambre))
             {
-                throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre);
+                throw new IFT287Exception("Réservation déjà existante: " + idClient + "/" + idChambre + "/" + dateDebut);
             }
 
             TupleReservation reservation = new TupleReservation(idClient, idChambre, dateDebut, dateFin);

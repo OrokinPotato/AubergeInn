@@ -28,7 +28,6 @@ public class TupleReservation {
     }
 
     public TupleReservation(int idClient, int idChambre, Date dateDebut, Date dateFin) {
-        //m_idReservation = idReservation;
         m_idClient = idClient;
         m_idChambre = idChambre;
         m_dateDebut = dateDebut;

@@ -1,5 +1,6 @@
 package AubergeInn;
 
+import java.util.Date;
 import java.util.List;
 
 public class GestionChambre {
@@ -89,8 +90,8 @@ public class GestionChambre {
         }
     }
 
-    // TODO: Faire une méthode listerLibre dans TableChambres
-    public void afficherChambresLibres() {
+
+    public void afficherChambresLibres() throws IFT287Exception {
         try {
             List<TupleChambre> lTupleChambre = tableChambres.getAllChambre();
 

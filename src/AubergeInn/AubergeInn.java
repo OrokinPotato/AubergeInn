@@ -1,6 +1,6 @@
 // Travail fait par :
 //   Olivier Tremblay-Turcotte - 17078154
-//   NomEquipier2 - Matricule
+//   Camille Gauthier - 11098625
 
 package AubergeInn;
 

@@ -22,7 +22,7 @@ public class TupleClient {
         m_age = d.getInteger("m_age");
 
         // TODO; Vérifier si on peut mettre des listes dans un document
-        m_clientreservation = (List<TupleReservation>) d.get("m_clientreservation");
+        m_clientReservation = (List<TupleReservation>) d.get("m_clientreservation");
     }
 
     public TupleClient(int idClient, String prenom, String nom, int age) {
@@ -51,37 +51,14 @@ public class TupleClient {
         return m_age;
     }
 
-    public void ajoutReservation(TupleReservation r){m_clientreservation.add(r);}
-    public void supprimerReservation(TupleReservation r){m_clientreservation.remove(r);}
+    public void ajoutReservation(TupleReservation r){m_clientReservation.add(r);}
+    public void supprimerReservation(TupleReservation r){m_clientReservation.remove(r);}
 
     public Document toDocument() {
         return new Document().append("m_idClient", m_idClient)
                 .append("m_prenom", m_prenom)
                 .append("m_nom", m_nom)
                 .append("m_age", m_age)
-                .append("m_clientreservation", m_clientreservation);
-    }
-
-    //TODO: mettre ça dans tableClient
-    /**
-     *  Pour afficher un client
-     */
-    public String print()
-    {
-        StringBuffer toPrint = new StringBuffer("");
-        toPrint.append("Identifiant du client: " + m_idClient + "\n");
-        toPrint.append("Nom: " + m_nom + "\n");
-        toPrint.append("Prenom: " + m_prenom + "\n");
-        toPrint.append("Age: " + m_age + "\n");
-        toPrint.append("Réservation du client: \n");
-        for (TupleReservation r:m_clientreservation) {
-            toPrint.append("------\n");
-            TupleChambre c = r.getM_Chambre();
-            toPrint.append("Identifiant de la chambre: " + c.getM_idChambre() + "\n");
-            toPrint.append("Date de début: "+ r.getM_datedebut().toString() + "\n");
-            toPrint.append("Date de Fin: "+ r.getM_dateFin().toString() + "\n");
-            toPrint.append("Prix: " + c.getPrixTotal() + "$\n");
-        }
-        return toPrint.toString();
+                .append("m_clientreservation", m_clientReservation);
     }
 }

@@ -4,8 +4,11 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Sorts.ascending;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
@@ -34,13 +37,18 @@ public class TableReservations {
         return null;
     }
 
-    public TupleReservation getReservationChambre(int idChambre) {
-        Document d = reservationsCollection.find(eq("m_idChambre", idChambre)).first();
-        if (d != null)
-        {
-            return new TupleReservation(d);
+    public List<TupleReservation> getReservationChambre(int idChambre) {
+        List<TupleReservation> reservationList = new LinkedList<>();
+        MongoCursor<Document> d = reservationsCollection.find(eq("m_idChambre", idChambre)).iterator();
+        try {
+            while (d.hasNext()) {
+                reservationList.add(new TupleReservation((d.next())));
+            }
         }
-        return null;
+        finally {
+            d.close();
+        }
+        return reservationList;
     }
 
     public boolean existe(int idClient, int idChambre) {
