@@ -11,6 +11,8 @@ public class TableReservations {
 
     private Connexion cx;
     private PreparedStatement stmtExiste;
+    private PreparedStatement stmtExistePourClient;
+    private PreparedStatement stmtExistePourChambre;
     private PreparedStatement stmtInsert;
     private PreparedStatement stmtDelete;
 
@@ -19,6 +21,10 @@ public class TableReservations {
 
         stmtExiste = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin "
                 + "from Reservations where client_Id = ? and chambre_Id= ? and date_debut=?");
+        stmtExistePourClient = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin "
+                + "from Reservations where client_Id = ?");
+        stmtExistePourChambre = cx.getConnection().prepareStatement("select client_Id, chambre_Id, date_Debut, date_Fin "
+                + "from Reservations where chambre_Id = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into Reservations (client_Id, chambre_Id, date_Debut, date_Fin) "
                 + "values (?,?,to_date(?,'YYYY-MM-DD'),to_date(?,'YYYY-MM-DD'))");
         stmtDelete = cx.getConnection().prepareStatement("delete from Reservations where client_Id = ? and chambre_Id = ? and date_Debut = ?");
@@ -45,8 +51,8 @@ public class TableReservations {
      */
     public List<TupleReservation> getReservationsClient(int idClient) throws Exception {
 
-        stmtExiste.setInt(1, idClient);
-        ResultSet rset = stmtExiste.executeQuery();
+        stmtExistePourClient.setInt(1, idClient);
+        ResultSet rset = stmtExistePourClient.executeQuery();
 
        return getReservationsListFromResultSet(rset);
     }
@@ -56,8 +62,8 @@ public class TableReservations {
      * Choisir les réservations faites pour une chambre
      */
     public List<TupleReservation> getReservationsChambre(int idChambre) throws SQLException{
-        stmtExiste.setInt(2, idChambre);
-        ResultSet rset = stmtExiste.executeQuery();
+        stmtExistePourChambre.setInt(1, idChambre);
+        ResultSet rset = stmtExistePourChambre.executeQuery();
 
         return getReservationsListFromResultSet(rset);
     }

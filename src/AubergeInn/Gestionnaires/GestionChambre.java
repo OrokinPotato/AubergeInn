@@ -61,7 +61,7 @@ public class GestionChambre {
             if (chambres.getChambre(id) == null){
                 throw new IFT287Exception("Chambre inexistante: " + id);
             }
-            if (reservations.getReservationsChambre(id) == null)
+            if (reservations.getReservationsChambre(id) != null)
             {
                 throw new IFT287Exception("Chambre "+ id + " présentement réservée");
             }
@@ -89,6 +89,7 @@ public class GestionChambre {
      */
     public void afficher(int idChambre) throws SQLException, IFT287Exception, Exception
     {
+        // TODO: AfficherChambre ne marche pas
         try
         {
             if (chambres.getChambre(idChambre) == null) {
@@ -110,6 +111,7 @@ public class GestionChambre {
      */
     public void afficherLibre() throws SQLException, IFT287Exception, Exception
     {
+        //TODO: AfficherChambresLibres ne marche pas
         try
         {
             chambres.afficherChambresLibres();

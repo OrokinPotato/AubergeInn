@@ -73,6 +73,7 @@ public class GestionClient {
      */
     public void afficher(int id) throws SQLException, IFT287Exception, Exception
     {
+        //TODO: AfficherClient ne marche pas
         try
         {
             if (clients.getClient(id) == null) {

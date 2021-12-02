@@ -5,13 +5,8 @@ import AubergeInn.IFT287Exception;
 
 import AubergeInn.Tables.*;
 
-import AubergeInn.Tuples.TupleChambre;
-import AubergeInn.Tuples.TupleCommodite;
-import AubergeInn.Tuples.TupleCommoditeChambre;
-
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.List;
 
 public class GestionReservation {
 
@@ -56,6 +51,11 @@ public class GestionReservation {
             }
             if (dateDebut.after(dateFin)) {
                 throw new IFT287Exception("La date de fin est avant la date de début");
+            }
+
+            java.util.Date dateNow = new java.util.Date(System.currentTimeMillis());
+            if (dateDebut.before(dateNow)){
+                throw new IFT287Exception("La date de début de la réservation ne doit pas être antérieure à aujourd'hui");
             }
 
             /**
